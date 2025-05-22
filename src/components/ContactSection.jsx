@@ -1,25 +1,39 @@
 import { Mail, Phone, MapPin, Linkedin, Instagram, Github, Twitter, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import emailjs from 'emailjs-com';
 
 export const ContactSection = () => {
+    const form = useRef();
     const {toast} = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleSubmit = (e) =>{
         e.preventDefault()
-
         setIsSubmitting(true);
 
-        setTimeout(() =>{
+        emailjs.sendForm(
+            'service_kwc4c4e',    
+            'template_4hpsbig',   
+            form.current,
+            'lc3GI7BONMgn1nU29'     
+        )
+        .then(() => {
             toast({
                 title: "Message Sent!",
                 description: "Thank you for reaching out! I'll get back to you as soon as possible.",
             });
+            form.current.reset();
             setIsSubmitting(false);
-        }, 1500);
-
+        }, () => {
+            toast({
+                title: "Message Failed!",
+                description: "Sorry, something went wrong. Please try again later.",
+                variant: "destructive",
+            });
+            setIsSubmitting(false);
+        });
     };
     return (
         <section id="contact" className="py-24 px-4 relative bg-secondary/30">
@@ -103,11 +117,10 @@ export const ContactSection = () => {
 
                      <div 
                         className="bg-card p-8 rounded-lg shadow-xs" 
-                        onSubmit={handleSubmit}
                     >
                         <h3 className="text-2xl font-semibold mb-6"> Send A Message</h3>
 
-                        <form className="space-y-6">
+                        <form ref={form} onSubmit={handleSubmit} className="space-y-6">
                             <div>
                                 <label 
                                     htmlFor="name" 
@@ -119,7 +132,8 @@ export const ContactSection = () => {
                                     type="text" 
                                     id="name" 
                                     name="name" 
-                                    required className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary"
+                                    required 
+                                    className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary"
                                     placeholder="John Bob..."
                                 />
                             </div>
@@ -136,7 +150,7 @@ export const ContactSection = () => {
                                     id="email" 
                                     name="email" 
                                     required className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary"
-                                    placeholder="JohnBob@gmai.com..."
+                                    placeholder="JohnBob@gmail.com..."
                                 />
                             </div>
 
@@ -150,16 +164,32 @@ export const ContactSection = () => {
                                 <textarea 
                                     id="message" 
                                     name="message" 
-                                    required className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary resize-none"
+                                    required 
+                                    className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary resize-none"
                                     placeholder="Hello, I'd like to talk about..."
                                 />
                             </div>
 
+                            <input 
+                                type="hidden" 
+                                name="time" 
+                                value={new Date().toLocaleString()} 
+                            />
+
+                            <input
+                                type="text"
+                                name="website"
+                                tabIndex="-1"
+                                autoComplete="off"
+                                style={{ display: "none" }}
+                            />
+
                             <button 
                                 type="submit"
+                                aria-label="Send Message"
                                 disabled={isSubmitting}
                                 className={cn(
-                                    "cosmic-button w-full flex items-cetner justify-center gap-2",
+                                    "cosmic-button w-full flex items-center justify-center gap-2",
 
                                 )}
                             >
