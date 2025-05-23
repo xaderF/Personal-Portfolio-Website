@@ -86,12 +86,16 @@ export const ContactSection = () => {
 
                             <div className="flex items-start space-x-4">
                                 <div className="p-3 rounded-full bg-primary/10">
-                                    <MapPin className="h-6 w-6 text" /> 
+                                    <Github className="h-6 w-6 text" /> 
                                 </div>
                                 <div>
-                                    <h4 className="font-medium"> Location</h4>
-                                    <a className="text-muted-foreground hover:text-primary transition-colors">
-                                        Toronto, Ontario
+                                    <h4 className="font-medium"> Github</h4>
+                                    <a 
+                                        className="text-muted-foreground hover:text-primary transition-colors"
+                                        href="https://github.com/xaderF"
+                                        target="_blank"
+                                    >
+                                        github.com/xaderF
                                     </a>
                                 </div>
                             </div>
@@ -100,7 +104,7 @@ export const ContactSection = () => {
                         <div className="pt-8">
                             <h4 className="font-medium mb-4"> Connect With Me</h4>
                             <div className="flex space-x-4 justify-center">
-                                <a href="#" target="_blank">
+                                <a href="https://www.linkedin.com/in/ryan-yu-383721273/" target="_blank">
                                     <Linkedin />
                                 </a> 
                                 <a href="#" target="_blank">
@@ -109,7 +113,7 @@ export const ContactSection = () => {
                                 <a href="#" target="_blank">
                                     <Instagram />
                                 </a>
-                                <a href="#" target="_blank">
+                                <a href="https://github.com/xaderF" target="_blank">
                                     <Github />
                                 </a>
                             </div>
