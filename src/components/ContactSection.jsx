@@ -70,15 +70,16 @@ export const ContactSection = () => {
 
                             <div className="flex items-start space-x-4">
                                 <div className="p-3 rounded-full bg-primary/10">
-                                    <Phone className="h-6 w-6 text" /> 
+                                    <Linkedin className="h-6 w-6 text" /> 
                                 </div>
                                 <div>
-                                    <h4 className="font-medium"> Phone</h4>
+                                    <h4 className="font-medium"> Linkedin</h4>
                                     <a 
-                                        href="tel:+17783169568" 
+                                        href="https://www.linkedin.com/in/ryan-yu-383721273/"
+                                        target="_blank"
                                         className="text-muted-foreground hover:text-primary transition-colors"
                                     >
-                                        +1 (778) 316-9568
+                                        linkedin.com/in/ryan-yu-383721273/
                                     </a>
                                 </div>
                             </div>
@@ -90,7 +91,7 @@ export const ContactSection = () => {
                                 <div>
                                     <h4 className="font-medium"> Location</h4>
                                     <a className="text-muted-foreground hover:text-primary transition-colors">
-                                        Vancouver, BC, Canada
+                                        Toronto, Ontario
                                     </a>
                                 </div>
                             </div>
