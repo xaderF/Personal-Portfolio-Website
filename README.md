@@ -1,14 +1,4 @@
-<<<<<<< HEAD
 # Personal-Portfolio-Website
-My personal website built using react js, vite and tailwind css.
-
-This is just a private reprository for my personal portfolio website.
-
-Code is made using Vite, React js and Tailwind css
-
-=======
-# React + Vite
-# 🌐 Personal Portfolio Website
 
 [![Made with React](https://img.shields.io/badge/Made%20with-React-61DAFB?logo=react&logoColor=white)](https://react.dev/)
 [![Built with Vite](https://img.shields.io/badge/Built%20with-Vite-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
@@ -32,7 +22,6 @@ Code is made using Vite, React js and Tailwind css
 - 🧩 Reusable React components  
 - 🧭 Smooth scrolling navigation  
 - 💼 Customizable sections for About, Projects, and Contact  
-- ☁️ Deploy-ready for Vercel, Netlify, or GitHub Pages
 
 ---
 
