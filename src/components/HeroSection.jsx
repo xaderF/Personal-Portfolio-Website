@@ -1,14 +1,16 @@
 import { ArrowDown } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const HeroSection = () => {
+    const navigate = useNavigate();
     return (
         <section 
             id="hero" 
-            className="relative min-h-screen flex flex-col item-center justify-center px-4"
+            className="relative min-h-screen flex flex-col items-center justify-center px-4 py-16"
         >
             <div className="container max-w-4xl mx-auto text-center z-10">
-                <div className="space-y-6">
-                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+                <div className="space-y-8">
+                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">
                         <span  className="opacity-0 animate-fade-in"> Hi, I'm</span>
                         <span className="text-primary opacity-0 animate-fade-in-delay-1">
                             {" "}
@@ -20,14 +22,17 @@ export const HeroSection = () => {
                         </span>
                     </h1>
 
-                    <p className="text-lg md:text-2xl text-muted-foreground max-2-2xl mx-auto opacity-0 animate-fade-in-delay-3">
+                    <p className="text-lg md:text-2xl text-muted-foreground max-w-2xl mx-auto opacity-0 animate-fade-in-delay-3 mb-6">
                         Paragaph about me section would be here.
                     </p>
 
                     <div className="pt-4 opacity-0 animate-fade-in-delay-4">
-                        <a href="#projects" className="cosmic-button">
+                        <button 
+                            className="cosmic-button"
+                            onClick={() => navigate("/projects")}
+                        >
                             View My Work
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>

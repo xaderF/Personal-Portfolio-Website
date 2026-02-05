@@ -1,19 +1,66 @@
 import React, { useState } from 'react';
-import {cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
 const navItems = [
-    {name: "Home", href: "#hero"},
+    {name: "Home", href: "/"},
     {name: "About", href: "#about"},
-    {name: "Skils", href: "#skills"},
-    {name: "Projects", href: "#projects"},
-    {name: "Contact", href: "#contact"},
+    {name: "Skills", href: "#skills"},
+    {name: "Projects", href: "/projects"},
+    {name: "Resume", href: "/resume"},
+    {name: "Contact", href: "/contact"},
 ];
 
 export const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    // Helper to scroll to section or top
+    const scrollToSection = (id) => {
+        setTimeout(() => {
+            if (!id || id === "hero" || id === "top") {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.scrollIntoView({ behavior: "smooth" });
+                }
+            }
+        }, 100);
+    };
+
+    // Handle nav click for Home/About/Skills
+    const handleNavClick = (href) => {
+        if (href === "/") {
+            if (location.pathname !== "/") {
+                navigate("/");
+                setTimeout(() => scrollToSection("top"), 200);
+            } else {
+                scrollToSection("top");
+            }
+        } else if (href.startsWith("#")) {
+            const sectionId = href.replace("#", "");
+            if (location.pathname !== "/") {
+                navigate("/");
+                setTimeout(() => scrollToSection(sectionId), 200);
+            } else {
+                scrollToSection(sectionId);
+            }
+        } else {
+            navigate(href);
+        }
+    };
+
+    // Always scroll to top on refresh
+    useEffect(() => {
+        if (location.pathname === "/") {
+            window.scrollTo({ top: 0 });
+        }
+    }, [location.pathname]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -43,13 +90,14 @@ export const Navbar = () => {
                 {/* desktop nav */}
                 <div className="hidden md:flex space-x-8">
                     {navItems.map((item, key) => (
-                        <a 
-                            key={key} 
-                            href={item.href} 
-                            className="text-foreground/80 hover:text-primary transition-colors duration-300"
+                        <button
+                            key={key}
+                            className="text-foreground/80 hover:text-primary transition-colors duration-300 bg-transparent border-none cursor-pointer"
+                            onClick={() => handleNavClick(item.href)}
+                            style={{ background: "none", border: "none", padding: 0 }}
                         >
                             {item.name}
-                        </a>
+                        </button>
                     ))}
                 </div>
                 
@@ -74,14 +122,17 @@ export const Navbar = () => {
                 >
                     <div className="flex flex-col space-y-8 text-xl">
                         {navItems.map((item, key) => (
-                            <a 
-                                key={key} 
-                                href={item.href} 
-                                className="text-foreground/80 hover:text-primary transition-colors duration-300"
-                                onClick={() => setIsMenuOpen(false)}
+                            <button
+                                key={key}
+                                className="text-foreground/80 hover:text-primary transition-colors duration-300 bg-transparent border-none cursor-pointer text-xl"
+                                onClick={() => {
+                                    setIsMenuOpen(false);
+                                    handleNavClick(item.href);
+                                }}
+                                style={{ background: "none", border: "none", padding: 0 }}
                             >
                                 {item.name}
-                            </a>
+                            </button>
                         ))}
                     </div>
                 </div>

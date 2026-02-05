@@ -64,27 +64,27 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
+    --background: 240 20% 98%; /* warm gray */
     --foreground: 222 47% 11%;
 
-    --card: 0 0% 100%;
+    --card: 240 20% 100%; /* white card */
 
-    --primary: 250 47% 60%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 255 80% 75%; /* lavender */
+    --primary-foreground: 240 20% 98%;
 
-    --border: 214 32% 91%;
+    --border: 240 20% 90%;
   }
 
   .dark {
-    --background: 222 47% 4%;
+    --background: 0 0% 0%; /* black */
     --foreground: 213 31% 91%;
 
-    --card: 222 47% 8%;
+    --card: 0 0% 10%; /* dark card */
 
-    --primary: 250 65% 65;
+    --primary: 220 100% 70%; /* blue accent */
     --primary-foreground: 213 31% 91%;
 
-    --border: 217 33% 20%;
+    --border: 0 0% 20%;
   }
 
   * {
@@ -145,13 +145,28 @@
 }
 
 @utility star {
-  @apply absolute rounded-full bg-white;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
+  @apply absolute rounded-full;
+  background: var(--star-color, #fff);
+  box-shadow: 0 0 10px 2px var(--star-shadow, rgba(255,255,255,0.4));
 }
 
 @utility meteor {
-  @apply absolute bg-linear-to-r from-white via-white to-transparent rounded-full;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.3);
+  @apply absolute rounded-full;
+  background: var(--meteor-color, linear-gradient(to right, #fff, #fff, transparent));
+  box-shadow: 0 0 10px 2px var(--meteor-shadow, rgba(255,255,255,0.3));
+}
+
+body {
+  --star-color: #7c3aed; /* dark lavender for stars */
+  --star-shadow: rgba(124, 58, 237, 0.4);
+  --meteor-color: linear-gradient(to right, #7c3aed, #a5b4fc, transparent);
+  --meteor-shadow: rgba(124, 58, 237, 0.3);
+}
+body.dark {
+  --star-color: #fff;
+  --star-shadow: rgba(255,255,255,0.4);
+  --meteor-color: linear-gradient(to right, #fff, #e0e7ff, transparent);
+  --meteor-shadow: rgba(255,255,255,0.3);
 }
 
 #root {

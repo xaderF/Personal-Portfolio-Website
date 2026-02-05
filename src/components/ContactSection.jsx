@@ -46,7 +46,7 @@ export const ContactSection = () => {
                     Paraagraph about how to get in touch with me. If they want to collaborate or recuiter trying to reach out.
                 </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
                     <div className="space-y-8">
                         <h3 className="text-2xl font-semibold mb-6"> 
                             Contact Information
@@ -58,13 +58,21 @@ export const ContactSection = () => {
                                     <Mail className="h-6 w-6 text" /> 
                                 </div>
                                 <div>
-                                    <h4 className="font-medium"> Email</h4>
-                                    <a 
-                                        href="mailto:ryanyu365@gmail.com" 
-                                        className="text-muted-foreground hover:text-primary transition-colors"
-                                    >
-                                        ryanyu365@gmail.com
-                                    </a>
+                                    <h4 className="font-medium">Email</h4>
+                                    <div className="flex flex-col gap-1">
+                                        <a 
+                                            href="mailto:ryanyu365@gmail.com" 
+                                            className="text-muted-foreground hover:text-primary transition-colors"
+                                        >
+                                            <span className="font-semibold">Personal:</span> ryanyu365@gmail.com
+                                        </a>
+                                        <a 
+                                            href="mailto:ryanrui.yu@mail.utoronto.ca" 
+                                            className="text-muted-foreground hover:text-primary transition-colors"
+                                        >
+                                            <span className="font-semibold">School:</span> ryanrui.yu@mail.utoronto.ca
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
 
@@ -122,6 +130,7 @@ export const ContactSection = () => {
 
                      <div 
                         className="bg-card p-8 rounded-lg shadow-xs" 
+                        aria-label="Contact form"
                     >
                         <h3 className="text-2xl font-semibold mb-6"> Send A Message</h3>
 
@@ -138,8 +147,9 @@ export const ContactSection = () => {
                                     id="name" 
                                     name="name" 
                                     required 
-                                    className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary"
+                                    className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary focus:border-primary"
                                     placeholder="John Bob..."
+                                    aria-label="Your Name"
                                 />
                             </div>
 
@@ -154,8 +164,9 @@ export const ContactSection = () => {
                                     type="email" 
                                     id="email" 
                                     name="email" 
-                                    required className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary"
+                                    required className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary focus:border-primary"
                                     placeholder="JohnBob@gmail.com..."
+                                    aria-label="Your Email"
                                 />
                             </div>
 
@@ -170,8 +181,9 @@ export const ContactSection = () => {
                                     id="message" 
                                     name="message" 
                                     required 
-                                    className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary resize-none"
+                                    className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary focus:border-primary resize-none"
                                     placeholder="Hello, I'd like to talk about..."
+                                    aria-label="Your Message"
                                 />
                             </div>
 
@@ -194,8 +206,7 @@ export const ContactSection = () => {
                                 aria-label="Send Message"
                                 disabled={isSubmitting}
                                 className={cn(
-                                    "cosmic-button w-full flex items-center justify-center gap-2",
-
+                                    "cosmic-button w-full flex items-center justify-center gap-2 focus:ring-2 focus:ring-primary focus:ring-offset-2",
                                 )}
                             >
                                 {isSubmitting ? "Sending..." : "Send Message"}
