@@ -22,7 +22,9 @@ Designed to showcase projects, technical skills, and experience through a modern
 
 ## Overview
 
-This project is my personal portfolio website, built to present my work and technical background in a clear, professional, and visually minimal format. The site follows a single-page layout with smooth navigation and responsive design to ensure a consistent experience across devices.
+## Overview
+
+This project is my personal portfolio website, built as a lightweight, framework-driven frontend application to present my work and technical background in a clear, professional, and visually minimal format. It demonstrates clean component design, modern frontend tooling, and attention to UI/UX details, while maintaining fast performance and responsive behavior across devices.
 
 The codebase is intentionally structured to be readable, modular, and easy to extend, making it suitable both as a personal site and as a frontend showcase project.
 
@@ -45,6 +47,7 @@ The codebase is intentionally structured to be readable, modular, and easy to ex
 - Fast development and build times using Vite
 - Clean, modern UI styled with Tailwind CSS
 - Easy customization of content and styling
+- - Accessible, semantic HTML with responsive typography and optimized build output for fast load times
 
 ---
 
