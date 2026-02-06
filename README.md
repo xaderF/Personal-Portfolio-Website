@@ -58,11 +58,11 @@ The project emphasizes readability, component reusability, ease of customization
 root
 ├── public
 ├── src
-│   ├── components   # Reusable UI components
-│   ├── pages        # Page-level layout and structure
-│   ├── assets       # Images and media files
-│   ├── styles       # Global and custom styles
-│   └── main.jsx     # Application entry point
-├── package.json     # Dependencies and scripts
-├── vite.config.js   # Vite configuration
+│   ├── components   
+│   ├── pages        
+│   ├── assets       
+│   ├── styles      
+│   └── main.jsx     
+├── package.json    
+├── vite.config.js   
 └── README.md
