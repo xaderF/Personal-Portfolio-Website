@@ -13,14 +13,11 @@ Designed to showcase projects, technical skills, and experience through a modern
 
 <p align="left">
   <a href="https://ryanportfoliowebsite.vercel.app/">
-    <img src="https://img.shields.io/badge/Live%20Site-Visit-A5B4FC?style=flat-square" />
+    <img src="https://img.shields.io/badge/Live%20Site-Visit-8B5CF6?style=flat-square" />
   </a>
 </p>
 
-
 ---
-
-## Overview
 
 ## Overview
 
@@ -41,32 +38,32 @@ The codebase is intentionally structured to be readable, modular, and easy to ex
 
 ## Features
 
-- Multi-page layout with smooth scrolling navigation
+- Single-page layout with smooth scrolling navigation
 - Fully responsive and optimized design for both desktop and mobile
 - Modular and reusable React components for future updates
 - Fast development and build times using Vite
 - Clean, modern UI styled with Tailwind CSS
 - Easy customization of content and styling
-- - Accessible, semantic HTML with responsive typography and optimized build output for fast load times
+- Accessible, semantic HTML with responsive typography and optimized build output for fast load times
 
 ---
 
 ## Tech Stack
 
-**Frontend**
+### Frontend
 - React
 - JavaScript (ES6+)
 - HTML5
 - CSS3
 
-**Styling**
+### Styling
 - Tailwind CSS
 
-**Tooling**
+### Tooling
 - Vite
 - npm
 
-**Deployment**
+### Deployment
 - Vercel
 
 ---
@@ -77,11 +74,11 @@ The codebase is intentionally structured to be readable, modular, and easy to ex
 root
 ├── public
 ├── src
-│   ├── components  
-│   ├── pages       
-│   ├── assets      
-│   ├── styles      
-│   └── main.jsx    
-├── package.json     
-├── vite.config.js   
+│   ├── components
+│   ├── pages
+│   ├── assets
+│   ├── styles
+│   └── main.jsx
+├── package.json
+├── vite.config.js
 └── README.md
