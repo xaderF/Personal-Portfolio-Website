@@ -1,4 +1,4 @@
-# Personal-Portfolio-Website
+# Personal Portfolio Website
 
 <p align="left">
   <img alt="React" src="https://img.shields.io/badge/React-Frontend-blue?style=flat-square" />
@@ -8,29 +8,38 @@
   <img alt="License" src="https://img.shields.io/badge/License-GPL--3.0-lightgrey?style=flat-square" />
 </p>
 
-> A clean, fast, and responsive personal portfolio website built with **React**, **Vite**, and **Tailwind CSS**.  
-> Designed to showcase projects, technical skills, and experience through a modern, minimal, single-page layout.
+A clean, fast, and responsive personal portfolio website built with **React**, **Vite**, and **Tailwind CSS**.  
+Designed to showcase projects, technical skills, and experience through a modern, minimal, single-page layout.
 
-🔗 **Live Demo:** https://personal-portfolio-website-eight-delta.vercel.app
+🔗 **Live Site:** https://ryanportfoliowebsite.vercel.app/
 
 ---
 
 ## Overview
 
-This repository contains my personal portfolio website, built to present my work and technical background in a clear, modern, and professional format. The site follows a minimalist single-page design with smooth navigation and a responsive layout to ensure a consistent experience across devices.
+This project is my personal portfolio website, built to present my work and technical background in a clear, professional, and visually minimal format. The site follows a single-page layout with smooth navigation and responsive design to ensure a consistent experience across devices.
 
-The project emphasizes readability, component reusability, ease of customization, and fast performance, making it both a practical personal site and a solid frontend showcase.
+The codebase is intentionally structured to be readable, modular, and easy to extend, making it suitable both as a personal site and as a frontend showcase project.
+
+---
+
+## Goals
+
+- Present personal projects and experiences clearly
+- Maintain a modern, minimalist aesthetic
+- Ensure fast load times and responsive design
+- Keep the codebase simple and easy to extend
 
 ---
 
 ## Features
 
-- Single-page layout with smooth scrolling navigation
-- Fully responsive design for desktop and mobile
-- Modular and reusable React components
-- Utility-first styling with Tailwind CSS
-- Fast development and build times powered by Vite
-- Simple and maintainable project structure
+- Multi-page layout with smooth scrolling navigation
+- Fully responsive and optimized design for both desktop and mobile
+- Modular and reusable React components for future updates
+- Fast development and build times using Vite
+- Clean, modern UI styled with Tailwind CSS
+- Easy customization of content and styling
 
 ---
 
@@ -45,9 +54,11 @@ The project emphasizes readability, component reusability, ease of customization
 **Styling**
 - Tailwind CSS
 
-**Tooling & Deployment**
+**Tooling**
 - Vite
 - npm
+
+**Deployment**
 - Vercel
 
 ---
@@ -58,11 +69,11 @@ The project emphasizes readability, component reusability, ease of customization
 root
 ├── public
 ├── src
-│   ├── components   
-│   ├── pages        
-│   ├── assets       
+│   ├── components  
+│   ├── pages       
+│   ├── assets      
 │   ├── styles      
-│   └── main.jsx     
-├── package.json    
+│   └── main.jsx    
+├── package.json     
 ├── vite.config.js   
 └── README.md
