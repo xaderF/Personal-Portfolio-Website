@@ -11,7 +11,7 @@
 A clean, fast, and responsive personal portfolio website built with **React**, **Vite**, and **Tailwind CSS**.  
 Designed to showcase projects, technical skills, and experience through a modern, minimal, single-page layout.
 
-🔗 **Live Site:** https://ryanportfoliowebsite.vercel.app/
+🔗 **Live Site:** [ryanportfoliowebsite.vercel.app](https://ryanportfoliowebsite.vercel.app/)
 
 ---
 
