@@ -13,9 +13,10 @@ Designed to showcase projects, technical skills, and experience through a modern
 
 <p align="left">
   <a href="https://ryanportfoliowebsite.vercel.app/">
-    <img src="https://img.shields.io/badge/Live%20Site-Visit-brightgreen?style=flat-square" />
+    <img src="https://img.shields.io/badge/Live%20Site-Visit-A5B4FC?style=flat-square" />
   </a>
 </p>
+
 
 ---
 
