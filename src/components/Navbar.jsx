@@ -79,14 +79,15 @@ export const Navbar = () => {
         >
 
             <div className="container flex items-center justify-between md:pr-14 lg:pr-16">
-                <a 
-                className="text-lg lg:text-xl font-bold text-primary flex items-center" 
-                href ="hero"
+                <button
+                type="button"
+                className="text-lg lg:text-xl font-bold text-primary flex items-center bg-transparent border-none cursor-pointer p-0"
+                onClick={() => handleNavClick("/")}
                 >
                     <span className="relative z-10">
                         <span className="text-glow text-foreground"> Ryan Yu </span> Portfolio
                     </span>
-                </a>
+                </button>
                 
                 {/* desktop nav */}
                 <div className="hidden md:flex items-center md:gap-4 lg:gap-6 xl:gap-8 md:text-sm lg:text-base">
