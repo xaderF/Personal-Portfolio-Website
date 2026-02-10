@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Github, Menu, X } from "lucide-react";
 
 const navItems = [
     {name: "Home", href: "/"},
     {name: "About", href: "#about"},
     {name: "Skills", href: "#skills"},
     {name: "Projects", href: "/projects"},
+    {name: "GitHub", href: "https://github.com/xaderF", external: true},
     {name: "Resume", href: "/resume"},
     {name: "Contact", href: "/contact"},
 ];
@@ -77,9 +78,9 @@ export const Navbar = () => {
             )}
         >
 
-            <div className="container flex items-center justify-between">
+            <div className="container flex items-center justify-between md:pr-14 lg:pr-16">
                 <a 
-                className="text-xl font-bold text-primary flex items-center" 
+                className="text-lg lg:text-xl font-bold text-primary flex items-center" 
                 href ="hero"
                 >
                     <span className="relative z-10">
@@ -88,16 +89,29 @@ export const Navbar = () => {
                 </a>
                 
                 {/* desktop nav */}
-                <div className="hidden md:flex space-x-8">
+                <div className="hidden md:flex items-center md:gap-4 lg:gap-6 xl:gap-8 md:text-sm lg:text-base">
                     {navItems.map((item, key) => (
-                        <button
-                            key={key}
-                            className="text-foreground/80 hover:text-primary transition-colors duration-300 bg-transparent border-none cursor-pointer"
-                            onClick={() => handleNavClick(item.href)}
-                            style={{ background: "none", border: "none", padding: 0 }}
-                        >
-                            {item.name}
-                        </button>
+                        item.external ? (
+                            <a
+                                key={key}
+                                className="text-foreground/80 hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5 whitespace-nowrap"
+                                href={item.href}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                {item.name}
+                                <Github size={16} />
+                            </a>
+                        ) : (
+                            <button
+                                key={key}
+                                className="text-foreground/80 hover:text-primary transition-colors duration-300 bg-transparent border-none cursor-pointer whitespace-nowrap"
+                                onClick={() => handleNavClick(item.href)}
+                                style={{ background: "none", border: "none", padding: 0 }}
+                            >
+                                {item.name}
+                            </button>
+                        )
                     ))}
                 </div>
                 
@@ -122,17 +136,31 @@ export const Navbar = () => {
                 >
                     <div className="flex flex-col space-y-8 text-xl">
                         {navItems.map((item, key) => (
-                            <button
-                                key={key}
-                                className="text-foreground/80 hover:text-primary transition-colors duration-300 bg-transparent border-none cursor-pointer text-xl"
-                                onClick={() => {
-                                    setIsMenuOpen(false);
-                                    handleNavClick(item.href);
-                                }}
-                                style={{ background: "none", border: "none", padding: 0 }}
-                            >
-                                {item.name}
-                            </button>
+                            item.external ? (
+                                <a
+                                    key={key}
+                                    className="text-foreground/80 hover:text-primary transition-colors duration-300 inline-flex items-center justify-center gap-2 text-xl"
+                                    href={item.href}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    {item.name}
+                                    <Github size={18} />
+                                </a>
+                            ) : (
+                                <button
+                                    key={key}
+                                    className="text-foreground/80 hover:text-primary transition-colors duration-300 bg-transparent border-none cursor-pointer text-xl"
+                                    onClick={() => {
+                                        setIsMenuOpen(false);
+                                        handleNavClick(item.href);
+                                    }}
+                                    style={{ background: "none", border: "none", padding: 0 }}
+                                >
+                                    {item.name}
+                                </button>
+                            )
                         ))}
                     </div>
                 </div>

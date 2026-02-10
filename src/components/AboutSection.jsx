@@ -14,15 +14,11 @@ export const AboutSection = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                     <div className="space-y-6">
                         <h3 className="text-2xl font-semibold">
-                            Passionate Game Developer & Software Engineer
+                            University of Toronto CS & Stats
                         </h3>
 
                         <p className="text-muted-foreground">
-                            Paragraph here, add later, maybe skills here and stuff
-                        </p>
-
-                        <p className="text-muted-foreground">
-                            Paragraph here, add later, maybe passions and interests
+                            I'm a Computer Science and Statistics student at the University of Toronto interested in full stack development and applied AI. I enjoy building practical software through hands on projects, from privacy focused analytics platforms to full stack web apps using React, FastAPI, and Node.js. I value collaboration, clear communication, and learning through feedback. Outside of coding, I enjoy playing and making music, especially piano and guitar, which keeps me creative and balanced.
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-6 pt-4 justify-center">
@@ -49,9 +45,9 @@ export const AboutSection = () => {
                                     <Code className="h-6 w-6 text-primary" />
                                 </div>
                                 <div className="text-left">
-                                    <h4 className="text-semibold text-lg"> About Code</h4>
+                                    <h4 className="text-semibold text-lg">Technical Experience</h4>
                                     <p>
-                                        Paragraph explain topic title, ie top is Web Dev, writing what web stuff we can do
+                                        Full-stack web apps, React, FastAPI, Node.js, and applied AI.
                                     </p>
                                 </div>
                             </div>
@@ -62,9 +58,9 @@ export const AboutSection = () => {
                                     <User className="h-6 w-6 text-primary" />
                                 </div>
                                 <div className="text-left">
-                                    <h4 className="text-semibold text-lg"> What I do</h4>
+                                    <h4 className="text-semibold text-lg">How I Work</h4>
                                     <p>
-                                        Paragraph explain what I can do in this role, like UI design or something
+                                        Collaborative, feedback-driven, and focused on clear communication.
                                     </p>
                                 </div>
                             </div>
@@ -75,9 +71,9 @@ export const AboutSection = () => {
                                     <Briefcase className="h-6 w-6 text-primary" />
                                 </div>
                                 <div className="text-left">
-                                    <h4 className="text-semibold text-lg"> Job title I would want</h4>
+                                    <h4 className="text-semibold text-lg">Beyond Coding</h4>
                                     <p>
-                                        Paragraph explain what position I'm looking for or can do
+                                        Musician (piano & guitar), creative, and balanced.
                                     </p>
                                 </div>
                             </div>

@@ -1,8 +1,82 @@
 import { ArrowDown } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+const heroTypedLines = [
+    "I am a Computer Science & Statistics student at the University of Toronto!",
+    "I am an aspiring software engineer!",
+    "I love building cool and useful full-stack projects!",
+    "I am curious and love learning new things!"
+];
 
 export const HeroSection = () => {
-    const navigate = useNavigate();
+    const [lineIndex, setLineIndex] = useState(0);
+    const [typedText, setTypedText] = useState("");
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [isWaiting, setIsWaiting] = useState(false);
+    const [reduceMotion, setReduceMotion] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+        setReduceMotion(mediaQuery.matches);
+
+        const handleMotionChange = (event) => {
+            setReduceMotion(event.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleMotionChange);
+        return () => mediaQuery.removeEventListener("change", handleMotionChange);
+    }, []);
+
+    useEffect(() => {
+        if (reduceMotion) {
+            setTypedText(heroTypedLines[0]);
+            return;
+        }
+
+        const fullText = heroTypedLines[lineIndex];
+        let delay = 65;
+
+        if (isWaiting) {
+            delay = 1200;
+        } else if (isDeleting) {
+            delay = 35;
+        }
+
+        const timer = setTimeout(() => {
+            if (isWaiting) {
+                setIsWaiting(false);
+                setIsDeleting(true);
+                return;
+            }
+
+            if (isDeleting) {
+                const nextText = fullText.slice(0, Math.max(0, typedText.length - 1));
+                setTypedText(nextText);
+
+                if (nextText.length === 0) {
+                    setIsDeleting(false);
+                    setLineIndex((prev) => (prev + 1) % heroTypedLines.length);
+                }
+                return;
+            }
+
+            const nextText = fullText.slice(0, typedText.length + 1);
+            setTypedText(nextText);
+            if (nextText === fullText) {
+                setIsWaiting(true);
+            }
+        }, delay);
+
+        return () => clearTimeout(timer);
+    }, [isDeleting, isWaiting, lineIndex, reduceMotion, typedText]);
+
+    const scrollToFeaturedProjects = () => {
+        const projectsSection = document.getElementById("projects");
+        if (projectsSection) {
+            projectsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    };
+
     return (
         <section 
             id="hero" 
@@ -22,14 +96,18 @@ export const HeroSection = () => {
                         </span>
                     </h1>
 
-                    <p className="text-lg md:text-2xl text-muted-foreground max-w-2xl mx-auto opacity-0 animate-fade-in-delay-3 mb-6">
-                        Paragaph about me section would be here.
+                    <p
+                        className="text-lg md:text-2xl text-primary max-w-3xl mx-auto opacity-0 animate-fade-in-delay-3 mb-6 min-h-[3rem] md:min-h-[3.5rem]"
+                        aria-live="polite"
+                    >
+                        {typedText}
+                        <span className="typing-caret" aria-hidden="true" />
                     </p>
 
                     <div className="pt-4 opacity-0 animate-fade-in-delay-4">
                         <button 
                             className="cosmic-button"
-                            onClick={() => navigate("/projects")}
+                            onClick={scrollToFeaturedProjects}
                         >
                             View My Work
                         </button>
