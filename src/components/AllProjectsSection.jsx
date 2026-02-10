@@ -69,24 +69,31 @@ export const AllProjectsSection = () => {
                 key={project.id}
                 className="scroll-mt-28 bg-card border border-border/70 rounded-2xl overflow-hidden shadow-lg"
               >
-                <div className="grid lg:grid-cols-[1.35fr_0.9fr]">
+                <div className="grid lg:grid-cols-[1.55fr_0.75fr]">
                   <div className="p-4 md:p-6 lg:p-7">
-                    <div className="rounded-xl overflow-hidden border border-border/70">
-                      <img
-                        src={selectedImage.src}
-                        alt={selectedImage.alt}
-                        className="w-full h-full object-cover min-h-[320px] md:min-h-[360px] lg:min-h-[420px]"
-                        loading="lazy"
-                      />
+                    <div className="flex items-center justify-center py-2">
+                      <figure className="inline-flex rounded-lg border border-border/70 overflow-hidden shadow-md">
+                        <img
+                          src={selectedImage.src}
+                          alt={selectedImage.alt}
+                          className="block w-auto max-w-full h-auto max-h-[360px] md:max-h-[420px] lg:max-h-[500px] object-contain origin-center [transform:scaleY(1.10)]"
+                          loading="lazy"
+                        />
+                      </figure>
                     </div>
                   </div>
 
-                  <div className="p-6 md:p-8 text-left">
+                  <div className="p-5 md:p-6 text-left">
                     <h2 className="text-2xl md:text-3xl font-bold mb-4">{project.title}</h2>
 
-                    <p className="text-muted-foreground mb-3">{project.shortDescription}</p>
+                    <p className="text-muted-foreground text-sm md:text-[15px] leading-relaxed mb-2.5">
+                      {project.shortDescription}
+                    </p>
                     {project.details.map((paragraph, index) => (
-                      <p key={`${project.slug}-detail-${index}`} className="text-muted-foreground mb-3">
+                      <p
+                        key={`${project.slug}-detail-${index}`}
+                        className="text-muted-foreground text-sm md:text-[15px] leading-relaxed mb-2.5"
+                      >
                         {paragraph}
                       </p>
                     ))}
@@ -152,7 +159,7 @@ export const AllProjectsSection = () => {
                           <img
                             src={image.src}
                             alt={image.alt}
-                            className="w-44 h-28 object-cover snap-center"
+                            className="w-44 h-28 object-contain bg-background/55 snap-center"
                             loading="lazy"
                           />
                         </button>
@@ -216,7 +223,7 @@ export const AllProjectsSection = () => {
                             <img
                               src={image.src}
                               alt={image.alt}
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-contain bg-background/55"
                               loading="lazy"
                             />
                           </button>
