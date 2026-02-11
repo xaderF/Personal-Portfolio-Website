@@ -63,7 +63,7 @@ export const projects = [
     ],
     tags: ["React", "JavaScript", "Analytics", "AI Tools"],
     demoUrl: "https://hi-ready-continued.vercel.app/",
-    githubUrl: "https://github.com/xaderF/HiReady"
+    githubUrl: "https://github.com/JacobChan182/HiReadyContinued"
   },
   {
     id: 3,
