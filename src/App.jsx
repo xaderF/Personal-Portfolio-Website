@@ -5,10 +5,12 @@ import { Contact } from "./pages/Contact";
 import { Resume } from "./pages/Resume";
 import { NotFound } from "./pages/NotFound";
 import { Toaster } from "@/components/ui/toaster";
+import { ClickSparkOverlay } from "@/components/ClickSparkOverlay";
 
 function App() {
   return (
     <>
+      <ClickSparkOverlay />
       <Toaster /> 
       <BrowserRouter>
         <Routes>

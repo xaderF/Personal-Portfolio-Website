@@ -24,6 +24,21 @@ const personalPhotos = [
   }
 ];
 
+const contactEmails = {
+  personal: {
+    label: "Personal",
+    parts: ["ryanyu365", "gmail.com"],
+    masked: "ryanyu365 [at] gmail [dot] com"
+  },
+  school: {
+    label: "School",
+    parts: ["ryanrui.yu", "mail.utoronto.ca"],
+    masked: "ryanrui.yu [at] mail [dot] utoronto [dot] ca"
+  }
+};
+
+const buildEmail = (parts) => `${parts[0]}@${parts[1]}`;
+
 const getWrappedOffset = (index, activeIndex, total) => {
   let offset = index - activeIndex;
   const half = total / 2;
@@ -155,23 +170,25 @@ export const ContactSection = () => {
               <div className="space-y-3">
                 <button
                   type="button"
-                  onClick={() => copyEmail("ryanyu365@gmail.com", "personal")}
+                  onClick={() => copyEmail(buildEmail(contactEmails.personal.parts), "personal")}
                   className="w-full text-left block rounded-lg border border-primary/35 bg-background/45 px-4 py-3 hover:bg-primary/15 transition-colors"
                 >
-                  <span className="font-medium">Personal</span>
-                  <span className="block text-sm text-muted-foreground">ryanyu365@gmail.com</span>
+                  <span className="font-medium">{contactEmails.personal.label}</span>
+                  <span className="block text-sm text-muted-foreground">
+                    {contactEmails.personal.masked}
+                  </span>
                   <span className="block text-xs text-primary mt-1">
                     {copiedType === "personal" ? "Copied to clipboard" : "Click to copy"}
                   </span>
                 </button>
                 <button
                   type="button"
-                  onClick={() => copyEmail("ryanrui.yu@mail.utoronto.ca", "school")}
+                  onClick={() => copyEmail(buildEmail(contactEmails.school.parts), "school")}
                   className="w-full text-left block rounded-lg border border-primary/35 bg-background/45 px-4 py-3 hover:bg-primary/15 transition-colors"
                 >
-                  <span className="font-medium">School</span>
+                  <span className="font-medium">{contactEmails.school.label}</span>
                   <span className="block text-sm text-muted-foreground">
-                    ryanrui.yu@mail.utoronto.ca
+                    {contactEmails.school.masked}
                   </span>
                   <span className="block text-xs text-primary mt-1">
                     {copiedType === "school" ? "Copied to clipboard" : "Click to copy"}

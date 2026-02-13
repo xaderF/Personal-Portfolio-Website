@@ -176,6 +176,13 @@ body.dark {
   text-align: center;
 }
 
+.click-spark-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
 @keyframes typing-caret-blink {
   0%,
   49% {

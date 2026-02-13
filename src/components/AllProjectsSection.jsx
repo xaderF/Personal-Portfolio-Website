@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
 import { Link } from "react-router-dom";
 import { projects } from "@/data/projectsData";
+import { getSafeExternalUrl } from "@/lib/utils";
 
 const getWrappedOffset = (index, activeIndex, total) => {
   let offset = index - activeIndex;
@@ -60,6 +61,8 @@ export const AllProjectsSection = () => {
               { src: project.image, alt: `${project.title} main screenshot` },
               ...project.gallery
             ];
+            const safeGithubUrl = getSafeExternalUrl(project.githubUrl);
+            const safeDemoUrl = getSafeExternalUrl(project.demoUrl);
             const selectedImageIndex = selectedImageByProject[project.slug] ?? 0;
             const selectedImage = allImages[selectedImageIndex] ?? allImages[0];
 
@@ -114,24 +117,28 @@ export const AllProjectsSection = () => {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-5">
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 text-foreground/85 hover:text-primary transition-colors"
-                      >
-                        <Github size={18} />
-                        View Project
-                      </a>
-                      <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 text-foreground/85 hover:text-primary transition-colors"
-                      >
-                        <ExternalLink size={18} />
-                        Live Demo
-                      </a>
+                      {safeGithubUrl ? (
+                        <a
+                          href={safeGithubUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 text-foreground/85 hover:text-primary transition-colors"
+                        >
+                          <Github size={18} />
+                          View Project
+                        </a>
+                      ) : null}
+                      {safeDemoUrl ? (
+                        <a
+                          href={safeDemoUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 text-foreground/85 hover:text-primary transition-colors"
+                        >
+                          <ExternalLink size={18} />
+                          Live Demo
+                        </a>
+                      ) : null}
                     </div>
                   </div>
                 </div>
