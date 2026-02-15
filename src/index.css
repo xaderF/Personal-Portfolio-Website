@@ -73,6 +73,10 @@
     --primary-foreground: 240 20% 98%;
 
     --border: 240 20% 90%;
+
+    --chroma-1: #6676b8; /* muted indigo-blue */
+    --chroma-2: #8366ad; /* muted purple */
+    --chroma-3: #8e96a8; /* soft silver slate */
   }
 
   .dark {
@@ -85,6 +89,10 @@
     --primary-foreground: 213 31% 91%;
 
     --border: 0 0% 20%;
+
+    --chroma-1: #355b8a; /* dark blue */
+    --chroma-2: #5b3f7d; /* dark purple */
+    --chroma-3: #707a8b; /* dark silver */
   }
 
   * {
@@ -202,6 +210,123 @@ body.dark {
   background: currentColor;
   vertical-align: -0.12em;
   animation: typing-caret-blink 1s step-end infinite;
+}
+
+.chroma-grid-scope {
+  position: relative;
+  --x: 50%;
+  --y: 50%;
+  --r: 280px;
+}
+
+.chroma-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: border-color 0.3s ease, transform 0.28s ease, box-shadow 0.3s ease;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --spotlight-color: color-mix(in oklab, var(--chroma-border-color, hsl(var(--primary))) 38%, transparent);
+}
+
+.chroma-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 68%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  z-index: 2;
+}
+
+.chroma-card:hover {
+  border-color: color-mix(in oklab, var(--chroma-border-color) 72%, hsl(var(--border)));
+}
+
+.chroma-card:hover::before {
+  opacity: 1;
+}
+
+.chroma-overlay,
+.chroma-fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  backdrop-filter: brightness(0.78);
+  -webkit-backdrop-filter: brightness(0.78);
+  background: rgba(0, 0, 0, 0.001);
+}
+
+.chroma-overlay {
+  z-index: 20;
+  mask-image: radial-gradient(
+    circle var(--r) at var(--x) var(--y),
+    transparent 0%,
+    transparent 15%,
+    rgba(0, 0, 0, 0.1) 30%,
+    rgba(0, 0, 0, 0.22) 45%,
+    rgba(0, 0, 0, 0.35) 60%,
+    rgba(0, 0, 0, 0.5) 75%,
+    rgba(0, 0, 0, 0.68) 88%,
+    white 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle var(--r) at var(--x) var(--y),
+    transparent 0%,
+    transparent 15%,
+    rgba(0, 0, 0, 0.1) 30%,
+    rgba(0, 0, 0, 0.22) 45%,
+    rgba(0, 0, 0, 0.35) 60%,
+    rgba(0, 0, 0, 0.5) 75%,
+    rgba(0, 0, 0, 0.68) 88%,
+    white 100%
+  );
+}
+
+.chroma-fade {
+  z-index: 21;
+  mask-image: radial-gradient(
+    circle var(--r) at var(--x) var(--y),
+    white 0%,
+    white 15%,
+    rgba(255, 255, 255, 0.9) 30%,
+    rgba(255, 255, 255, 0.78) 45%,
+    rgba(255, 255, 255, 0.65) 60%,
+    rgba(255, 255, 255, 0.5) 75%,
+    rgba(255, 255, 255, 0.32) 88%,
+    transparent 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle var(--r) at var(--x) var(--y),
+    white 0%,
+    white 15%,
+    rgba(255, 255, 255, 0.9) 30%,
+    rgba(255, 255, 255, 0.78) 45%,
+    rgba(255, 255, 255, 0.65) 60%,
+    rgba(255, 255, 255, 0.5) 75%,
+    rgba(255, 255, 255, 0.32) 88%,
+    transparent 100%
+  );
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chroma-overlay,
+  .chroma-fade {
+    display: none;
+  }
+
+  .chroma-card {
+    transform: none !important;
+  }
+
+  .chroma-card::before {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
