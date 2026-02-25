@@ -4,12 +4,13 @@ import { projects } from "@/data/projectsData";
 import { getSafeExternalUrl } from "@/lib/utils";
 import { useChromaGridEffect } from "@/hooks/useChromaGridEffect";
 
-const CHROMA_BORDER_COLORS = ["var(--chroma-1)", "var(--chroma-2)", "var(--chroma-3)"];
+const CHROMA_BORDER_COLORS = ["var(--chroma-1)", "var(--chroma-2)"];
 
 export const ProjectsSection = () => {
   const { rootRef, fadeRef, handleGridPointerMove, handleGridPointerLeave, handleCardPointerMove } =
     useChromaGridEffect();
   const chromaRadius = "320px";
+  const featuredProjects = projects.filter((project) => project.isFeatured);
 
   return (
     <section id="projects" className="py-24 px-4 relative">
@@ -31,7 +32,7 @@ export const ProjectsSection = () => {
           onPointerLeave={handleGridPointerLeave}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => {
+          {featuredProjects.map((project, index) => {
             const safeDemoUrl = getSafeExternalUrl(project.demoUrl);
             const safeGithubUrl = getSafeExternalUrl(project.githubUrl);
             const borderColor = CHROMA_BORDER_COLORS[index % CHROMA_BORDER_COLORS.length];
@@ -72,6 +73,12 @@ export const ProjectsSection = () => {
                       {project.title}
                     </Link>
                   </h3>
+
+                  {project.completedDate ? (
+                    <p className="text-xs uppercase tracking-[0.12em] text-primary mb-3">
+                      {project.completedDate}
+                    </p>
+                  ) : null}
 
                   <p className="text-muted-foreground text-sm mb-5">
                     {project.shortDescription}

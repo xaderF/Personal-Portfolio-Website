@@ -5,7 +5,7 @@ import { projects } from "@/data/projectsData";
 import { getSafeExternalUrl } from "@/lib/utils";
 import { useChromaGridEffect } from "@/hooks/useChromaGridEffect";
 
-const CHROMA_BORDER_COLORS = ["var(--chroma-1)", "var(--chroma-2)", "var(--chroma-3)"];
+const CHROMA_BORDER_COLORS = ["var(--chroma-1)", "var(--chroma-2)"];
 
 const getWrappedOffset = (index, activeIndex, total) => {
   let offset = index - activeIndex;
@@ -104,6 +104,12 @@ export const AllProjectsSection = () => {
 
                   <div className="p-5 md:p-6 text-left">
                     <h2 className="text-2xl md:text-3xl font-bold mb-4">{project.title}</h2>
+
+                    {project.completedDate ? (
+                      <p className="text-xs uppercase tracking-[0.12em] text-primary mb-3">
+                        {project.completedDate}
+                      </p>
+                    ) : null}
 
                     <p className="text-muted-foreground text-sm md:text-[15px] leading-relaxed mb-2.5">
                       {project.shortDescription}
