@@ -314,6 +314,14 @@ body.dark {
   transition: opacity 0.25s ease;
 }
 
+/* Disable global dim overlays so project sections stay fully bright. */
+.chroma-overlay,
+.chroma-fade {
+  display: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .chroma-overlay,
   .chroma-fade {

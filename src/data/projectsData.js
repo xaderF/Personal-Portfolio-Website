@@ -132,5 +132,44 @@ export const projects = [
     githubUrl: "https://github.com/xaderF/FlusherFinder?tab=readme-ov-file",
     statusNote:
       "The public demo backend is currently expired, but the full source code is available on GitHub."
+  },
+  {
+    id: 5,
+    slug: "wellspring-study",
+    title: "Wellspring Study",
+    completedDate: "Apr 2025",
+    isFeatured: false,
+    shortDescription:
+      "A school project where our team conducted statistical analysis for Wellspring, a real non-profit partner, to answer practical research questions with data.",
+    details: [
+      "We cleaned and structured the dataset, performed exploratory analysis, and used statistical testing and visualizations to evaluate key trends and relationships.",
+      "The final deliverable translated technical findings into concise, actionable recommendations that Wellspring could use for planning and decision support."
+    ],
+    image: "/projects/Sta130_Final_Project/Slide_Title_Page.png",
+    gallery: [
+      {
+        src: "/projects/Sta130_Final_Project/Slide_Graph.png",
+        alt: "Wellspring Study graph slide"
+      },
+      {
+        src: "/projects/Sta130_Final_Project/Slide_Boxplot.png",
+        alt: "Wellspring Study boxplot slide"
+      },
+      {
+        src: "/projects/Sta130_Final_Project/Slide_Boxplot2.png",
+        alt: "Wellspring Study secondary boxplot slide"
+      },
+      {
+        src: "/projects/Sta130_Final_Project/Slide_Data_Table.png",
+        alt: "Wellspring Study data table slide"
+      },
+      {
+        src: "/projects/Sta130_Final_Project/Slide_Data_Table2.png",
+        alt: "Wellspring Study secondary data table slide"
+      }
+    ],
+    tags: ["Data Science", "Statistical Analysis", "Python", "R", "Research"],
+    demoUrl: "https://xaderf.github.io/wellspring-study/",
+    githubUrl: "https://github.com/xaderF/wellspring-study"
   }
 ];

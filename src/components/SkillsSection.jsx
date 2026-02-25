@@ -9,25 +9,26 @@ const skills = [
   { name: "Flask", tier: "proficient", category: "backend", rank: 3 },
   { name: "Git/Github", tier: "proficient", category: "tools", rank: 4 },
   { name: "React", tier: "proficient", category: "frontend", rank: 5 },
-  { name: "Node.js", tier: "proficient", category: "backend", rank: 6 },
-  { name: "VS Code", tier: "proficient", category: "tools", rank: 7 },
+  { name: "JavaScript", tier: "proficient", category: "frontend", rank: 6 },
+  { name: "HTML/CSS", tier: "proficient", category: "frontend", rank: 7 },
+  { name: "Tailwind CSS", tier: "proficient", category: "frontend", rank: 8 },
+  { name: "TypeScript", tier: "proficient", category: "frontend", rank: 9 },
+  { name: "Node.js", tier: "proficient", category: "backend", rank: 10 },
+  { name: "VS Code", tier: "proficient", category: "tools", rank: 11 },
 
   // Working Knowledge
   { name: "Java", tier: "working", category: "languages", rank: 1 },
-  { name: "JavaScript", tier: "working", category: "frontend", rank: 2 },
-  { name: "HTML/CSS", tier: "working", category: "frontend", rank: 3 },
-  { name: "Tailwind CSS", tier: "working", category: "frontend", rank: 4 },
-  { name: "MongoDB", tier: "working", category: "backend", rank: 5 },
-  { name: "Vercel", tier: "working", category: "tools", rank: 6 },
-  { name: "Railway", tier: "working", category: "tools", rank: 7 },
-  { name: "Docker", tier: "working", category: "tools", rank: 8 },
+  { name: "MongoDB", tier: "working", category: "backend", rank: 2 },
+  { name: "SQL (Postgres/SQLite)", tier: "working", category: "backend", rank: 3 },
+  { name: "Vercel", tier: "working", category: "tools", rank: 4 },
+  { name: "Railway", tier: "working", category: "tools", rank: 5 },
+  { name: "Docker", tier: "working", category: "tools", rank: 6 },
 
   // Familiar
   { name: "Unity", tier: "familiar", category: "tools", rank: 1 },
   { name: "Next.js", tier: "familiar", category: "frontend", rank: 2 },
   { name: "C", tier: "familiar", category: "languages", rank: 3 },
-  { name: "SQL (Postgres/SQLite)", tier: "familiar", category: "backend", rank: 4 },
-  { name: "C#", tier: "familiar", category: "languages", rank: 5 },
+  { name: "C#", tier: "familiar", category: "languages", rank: 4 },
 ];
 
 const categories = ["all", "frontend", "backend", "tools", "languages"];

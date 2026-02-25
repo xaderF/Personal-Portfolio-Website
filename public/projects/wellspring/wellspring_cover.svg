@@ -1,0 +1,21 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1280" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E3A8A"/>
+      <stop offset="1" stop-color="#5B21B6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" rx="24" fill="url(#bg)"/>
+  <circle cx="190" cy="140" r="120" fill="white" fill-opacity="0.08"/>
+  <circle cx="1120" cy="600" r="170" fill="white" fill-opacity="0.08"/>
+  <rect x="180" y="235" width="920" height="250" rx="18" fill="white" fill-opacity="0.12"/>
+  <text x="640" y="320" text-anchor="middle" fill="#E2E8F0" font-size="48" font-family="Arial, sans-serif" font-weight="700">
+    Wellspring Study
+  </text>
+  <text x="640" y="380" text-anchor="middle" fill="#E2E8F0" font-size="30" font-family="Arial, sans-serif">
+    Statistical Analysis and Data Science Project
+  </text>
+  <text x="640" y="432" text-anchor="middle" fill="#BFDBFE" font-size="24" font-family="Arial, sans-serif">
+    Final School Project for a Real Non-Profit
+  </text>
+</svg>
