@@ -1,5 +1,5 @@
 import { ThemeToggle } from "../components/ThemeToggle";
-import { StarBackground } from "@/components/StarBackground";
+import { HomeParticlesBackground } from "@/components/HomeParticlesBackground";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { AboutSection } from "@/components/AboutSection";
@@ -9,17 +9,17 @@ import { Footer } from "../components/Footer";
 
 export const Home = () => {
     return (
-        <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+        <div className="min-h-screen relative bg-background text-foreground overflow-x-hidden home-text-color-lock">
             {/* Theme Toggle */}
             <ThemeToggle />
             {/* Background Effects */}
-            <StarBackground />
+            <HomeParticlesBackground />
 
             {/* Navbar */}
             <Navbar />
 
             {/* Main Content */}
-            <main>
+            <main className="relative z-10">
                 <HeroSection />
                 <AboutSection />
                 <ProjectsSection />
@@ -27,7 +27,9 @@ export const Home = () => {
             </main>
 
             {/* Footer */}
-            <Footer />
+            <div className="relative z-10">
+                <Footer />
+            </div>
         </div>
     );
 };

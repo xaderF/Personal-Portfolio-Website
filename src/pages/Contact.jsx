@@ -1,18 +1,20 @@
 import { ContactSection } from "../components/ContactSection";
 import { Navbar } from "../components/Navbar";
-import { StarBackground } from "../components/StarBackground";
+import { ContactPrismBackground } from "../components/ContactPrismBackground";
 import { Footer } from "../components/Footer";
 import { ThemeToggle } from "../components/ThemeToggle";
 
 export const Contact = () => (
-  <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+  <div className="min-h-screen relative bg-background text-foreground overflow-x-hidden">
     <ThemeToggle />
-    <StarBackground />
+    <ContactPrismBackground />
     <Navbar />
-    <main>
+    <main className="relative z-10">
       <ContactSection />
     </main>
-    <Footer />
+    <div className="relative z-10">
+      <Footer />
+    </div>
   </div>
 );
 

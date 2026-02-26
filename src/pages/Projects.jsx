@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
-import { StarBackground } from "../components/StarBackground";
+import { ProjectsAuroraBackground } from "../components/ProjectsAuroraBackground";
 import { Footer } from "../components/Footer";
 import { ThemeToggle } from "../components/ThemeToggle";
 import { AllProjectsSection } from "../components/AllProjectsSection";
@@ -25,14 +25,16 @@ export const Projects = () => {
   }, [location.hash]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen relative bg-background text-foreground overflow-x-hidden">
       <ThemeToggle />
-      <StarBackground />
+      <ProjectsAuroraBackground />
       <Navbar />
-      <main>
+      <main className="relative z-10">
         <AllProjectsSection />
       </main>
-      <Footer />
+      <div className="relative z-10">
+        <Footer />
+      </div>
     </div>
   );
 };

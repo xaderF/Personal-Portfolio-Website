@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export const AboutSection = () => {
     const navigate = useNavigate();
     return (
-        <section id="about" className="py-24 px-4 relative bg-secondary/20">
+        <section id="about" className="py-24 px-4 relative">
             {" "} 
             <div className="container mx-auto max-w-5xl">
                 <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
@@ -30,7 +30,7 @@ export const AboutSection = () => {
                             </button>
 
                             <button
-                                className="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition duration-300"
+                                className="cosmic-button bg-transparent border border-primary text-primary hover:bg-primary/10"
                                 onClick={() => navigate('/resume')}
                             >
                                 Resume

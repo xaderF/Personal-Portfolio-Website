@@ -80,7 +80,7 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-24 px-4 relative bg-secondary/30">
+    <section id="contact" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
           Get In <span className="text-primary">Touch</span>
@@ -208,27 +208,6 @@ export const ContactSection = () => {
         ) : null}
 
         <div className="mt-5">
-          <div className="flex items-center justify-center gap-3 mb-0.5">
-            <button
-              type="button"
-              onClick={() => cyclePhoto(-1)}
-              className="p-2 rounded-full border border-border/70 hover:border-primary/70 text-foreground/80 hover:text-primary transition-colors disabled:opacity-40"
-              aria-label="Previous photo"
-              disabled={personalPhotos.length <= 1}
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <button
-              type="button"
-              onClick={() => cyclePhoto(1)}
-              className="p-2 rounded-full border border-border/70 hover:border-primary/70 text-foreground/80 hover:text-primary transition-colors disabled:opacity-40"
-              aria-label="Next photo"
-              disabled={personalPhotos.length <= 1}
-            >
-              <ChevronRight size={18} />
-            </button>
-          </div>
-
           <div className="relative h-[35rem] md:h-[46rem] [perspective:1700px] overflow-hidden">
             {personalPhotos.map((photo, index) => {
               const offset = getWrappedOffset(index, activePhotoIndex, personalPhotos.length);
@@ -269,6 +248,27 @@ export const ContactSection = () => {
                 </button>
               );
             })}
+          </div>
+
+          <div className="flex items-center justify-center gap-3 mt-3">
+            <button
+              type="button"
+              onClick={() => cyclePhoto(-1)}
+              className="p-2 rounded-full border border-border/70 hover:border-primary/70 text-foreground/80 hover:text-primary transition-colors disabled:opacity-40"
+              aria-label="Previous photo"
+              disabled={personalPhotos.length <= 1}
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <button
+              type="button"
+              onClick={() => cyclePhoto(1)}
+              className="p-2 rounded-full border border-border/70 hover:border-primary/70 text-foreground/80 hover:text-primary transition-colors disabled:opacity-40"
+              aria-label="Next photo"
+              disabled={personalPhotos.length <= 1}
+            >
+              <ChevronRight size={18} />
+            </button>
           </div>
         </div>
       </div>

@@ -61,7 +61,7 @@ export const SkillsSection = () => {
     });
 
   return (
-    <section id="skills" className="py-24 px-4 relative bg-secondary/30">
+    <section id="skills" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
           My <span className="text-primary"> Skills</span>
@@ -73,10 +73,10 @@ export const SkillsSection = () => {
               key={category}
               onClick={() => setActiveCategory(category)}
               className={cn(
-                "px-5 py-2 rounded-full transition-colors duration-300 capitalize",
+                "px-5 py-2 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)] capitalize",
                 activeCategory === category
                   ? "bg-primary text-primary-foreground"
-                  : "bg-secondary/70 text-foreground hover:bg-scondary"
+                  : "bg-secondary/70 text-foreground hover:bg-secondary"
               )}
             >
               {category}
@@ -90,10 +90,10 @@ export const SkillsSection = () => {
             <span className="font-semibold">Skill Depth:</span>
             <button
               className={cn(
-                "px-3 py-1 rounded-full transition-colors duration-300",
+                "px-3 py-1 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)]",
                 activeTier === "all"
                   ? "bg-primary text-primary-foreground"
-                  : "bg-secondary/70 text-foreground hover:bg-scondary"
+                  : "bg-secondary/70 text-foreground hover:bg-secondary"
               )}
               onClick={() => setActiveTier("all")}
             >
@@ -103,10 +103,10 @@ export const SkillsSection = () => {
               <button
                 key={tier}
                 className={cn(
-                  "px-3 py-1 rounded-full transition-colors duration-300",
+                  "px-3 py-1 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)]",
                   activeTier === tier
                     ? "bg-primary text-primary-foreground"
-                    : "bg-secondary/70 text-foreground hover:bg-scondary"
+                    : "bg-secondary/70 text-foreground hover:bg-secondary"
                 )}
                 onClick={() => setActiveTier(tier)}
               >
