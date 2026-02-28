@@ -19,8 +19,8 @@ export const ProjectsAuroraBackground = () => {
   }, []);
 
   const colorStops = isDark
-    ? ["#2a1652", "#7c3aed", "#1e3a8a"]
-    : ["#5b21b6", "#a78bfa", "#3b82f6"];
+    ? ["#10b3ff", "#3fffd2", "#7dffae"]
+    : ["#0ea5b7", "#34d399", "#38bdf8"];
 
   return (
     <div className={`projects-aurora-bg ${isDark ? "is-dark" : "is-light"}`} aria-hidden="true">
