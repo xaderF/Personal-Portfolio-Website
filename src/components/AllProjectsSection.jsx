@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { projects } from "@/data/projectsData";
 import { getSafeExternalUrl } from "@/lib/utils";
 import { useChromaGridEffect } from "@/hooks/useChromaGridEffect";
+import GradientText from "./GradientText";
 
 const CHROMA_BORDER_COLORS = ["var(--chroma-1)", "var(--chroma-2)"];
 
@@ -42,11 +43,20 @@ export const AllProjectsSection = () => {
   return (
     <section className="pt-32 pb-24 px-4 relative">
       <div className="container mx-auto max-w-7xl">
-        <div className="bg-card/90 border border-border/70 rounded-2xl p-8 md:p-12 shadow-lg mb-10 text-left">
+        <div className="bg-card/55 border border-border/55 rounded-2xl p-8 md:p-12 shadow-lg mb-10 text-left">
           <p className="text-sm uppercase tracking-[0.2em] text-primary font-semibold mb-3">
             All Projects
           </p>
-          <h1 className="text-3xl md:text-5xl font-bold mb-3">In-Depth Project Showcase</h1>
+          <h1 className="mb-3">
+            <GradientText
+              colors={["var(--aurora-stop-1)", "var(--aurora-stop-2)", "var(--aurora-stop-3)"]}
+              animationSpeed={8}
+              showBorder={false}
+              className="text-3xl md:text-5xl font-bold leading-tight"
+            >
+              In-Depth Project Showcase
+            </GradientText>
+          </h1>
           <p className="text-muted-foreground text-base md:text-lg max-w-3xl">
             Full breakdowns of my work, including context, implementation goals, and
             additional screenshots for each project.
@@ -84,7 +94,7 @@ export const AllProjectsSection = () => {
                 <article
                   id={project.slug}
                   key={project.id}
-                  className="chroma-card group relative scroll-mt-28 bg-card border border-border/70 rounded-2xl overflow-hidden shadow-lg"
+                  className="chroma-card group relative scroll-mt-28 bg-card/55 border border-border/55 rounded-2xl overflow-hidden shadow-lg"
                   style={{ "--chroma-border-color": borderColor }}
                   onPointerMove={handleCardPointerMove}
                 >

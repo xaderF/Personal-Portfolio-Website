@@ -40,7 +40,7 @@ export const ProjectsSection = () => {
             return (
               <article
                 key={project.id}
-                className="chroma-card group relative bg-card rounded-lg overflow-hidden shadow-xs card-hover border border-border/70 transition-shadow duration-300"
+                className="chroma-card group relative bg-card/55 rounded-lg overflow-hidden shadow-xs card-hover border border-border/55 transition-shadow duration-300"
                 style={{ "--chroma-border-color": borderColor }}
                 onPointerMove={handleCardPointerMove}
               >

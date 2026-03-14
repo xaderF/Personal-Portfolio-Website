@@ -77,6 +77,10 @@
     --chroma-1: #6676b8; /* muted indigo-blue */
     --chroma-2: #8366ad; /* muted purple */
     --chroma-3: #8e96a8; /* soft silver slate */
+
+    --aurora-stop-1: #0ea5b7;
+    --aurora-stop-2: #34d399;
+    --aurora-stop-3: #38bdf8;
   }
 
   .dark {
@@ -93,6 +97,10 @@
     --chroma-1: #355b8a; /* dark blue */
     --chroma-2: #5b3f7d; /* dark purple */
     --chroma-3: #707a8b; /* dark silver */
+
+    --aurora-stop-1: #10b3ff;
+    --aurora-stop-2: #3fffd2;
+    --aurora-stop-3: #7dffae;
   }
 
   * {

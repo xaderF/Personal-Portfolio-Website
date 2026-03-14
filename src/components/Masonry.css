@@ -1,0 +1,130 @@
+.list {
+  position: relative;
+  width: 100%;
+}
+
+.item-wrapper {
+  position: absolute;
+  will-change: transform, width, height, opacity;
+  padding: 6px;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+}
+
+.item-wrapper > .item-img {
+  position: relative;
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  box-shadow: 0 10px 50px -10px rgba(0, 0, 0, 0.3);
+  border: 1px solid hsl(var(--border) / 0.7);
+}
+
+.masonry-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(0, 0, 0, 0.05);
+  backdrop-filter: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.masonry-lightbox-panel {
+  position: relative;
+  width: min(94vw, 92rem);
+  max-height: 92vh;
+  border-radius: 1rem;
+  border: none;
+  background: transparent;
+  padding: 1.25rem 1.25rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.masonry-lightbox-image {
+  width: 100%;
+  max-width: 76rem;
+  max-height: min(75vh, 56rem);
+  object-fit: contain;
+  border-radius: 0.9rem;
+}
+
+.masonry-lightbox-close,
+.masonry-lightbox-nav {
+  position: absolute;
+  border: 1px solid hsl(var(--border) / 0.5);
+  color: hsl(var(--foreground));
+  background: rgba(15, 24, 42, 0.72);
+  border-radius: 9999px;
+  width: 3rem;
+  height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.masonry-lightbox-close:hover,
+.masonry-lightbox-nav:hover {
+  color: hsl(var(--primary));
+  border-color: hsl(var(--primary) / 0.7);
+}
+
+.masonry-lightbox-close {
+  top: 0.9rem;
+  right: 0.9rem;
+}
+
+.masonry-lightbox-nav {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.masonry-lightbox-nav--left {
+  left: 0.9rem;
+}
+
+.masonry-lightbox-nav--right {
+  right: 0.9rem;
+}
+
+.masonry-lightbox-thumbs {
+  width: 100%;
+  max-width: 82rem;
+  margin-top: 0.9rem;
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.25rem 0.1rem 0.2rem;
+}
+
+.masonry-lightbox-thumb {
+  border: 1px solid transparent;
+  border-radius: 0.55rem;
+  overflow: hidden;
+  cursor: pointer;
+  flex: 0 0 auto;
+  width: 4.5rem;
+  height: 3.2rem;
+  background: transparent;
+}
+
+.masonry-lightbox-thumb.is-active {
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 1px hsl(var(--primary) / 0.4);
+}
+
+.masonry-lightbox-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

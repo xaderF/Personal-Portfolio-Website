@@ -1,5 +1,22 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import LogoLoop from "./LogoLoop";
+import {
+  SiDocker,
+  SiFastapi,
+  SiFlask,
+  SiGithub,
+  SiJavascript,
+  SiMongodb,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPython,
+  SiReact,
+  SiRailway,
+  SiTailwindcss,
+  SiTypescript,
+  SiVercel
+} from "react-icons/si";
 
 // Skills data: grouped by category, tiered, and ranked within each tier
 const skills = [
@@ -44,6 +61,30 @@ const tierBarWidths = {
   familiar: "30%",
 };
 
+const skillIconMap = {
+  Python: SiPython,
+  FastAPI: SiFastapi,
+  Flask: SiFlask,
+  "Git/Github": SiGithub,
+  React: SiReact,
+  JavaScript: SiJavascript,
+  "Tailwind CSS": SiTailwindcss,
+  TypeScript: SiTypescript,
+  "Node.js": SiNodedotjs,
+  MongoDB: SiMongodb,
+  Vercel: SiVercel,
+  Railway: SiRailway,
+  Docker: SiDocker,
+  "Next.js": SiNextdotjs
+};
+
+const skillLogos = Array.from(new Set(skills.map((skill) => skill.name)))
+  .filter((name) => skillIconMap[name])
+  .map((name) => {
+    const Icon = skillIconMap[name];
+    return { node: <Icon />, title: name };
+  });
+
 export const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [activeTier, setActiveTier] = useState("all");
@@ -63,11 +104,27 @@ export const SkillsSection = () => {
   return (
     <section id="skills" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-7 text-center">
           My <span className="text-primary"> Skills</span>
         </h2>
 
-        <div className="flex flex-wrap justify-center gap-6 mb-12">
+        <div className="mb-7">
+          <LogoLoop
+            logos={skillLogos}
+            speed={85}
+            direction="left"
+            logoHeight={34}
+            gap={34}
+            hoverSpeed={18}
+            scaleOnHover
+            fadeOut
+            fadeOutColor="hsl(var(--background))"
+            className="skills-logo-loop"
+            ariaLabel="Skills and frameworks"
+          />
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-6 mb-5">
           {categories.map((category) => (
             <button
               key={category}
@@ -85,7 +142,7 @@ export const SkillsSection = () => {
         </div>
 
         {/* Clickable legend for skill tiers */}
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-7">
           <div className="bg-secondary/40 rounded-lg px-4 py-2 text-sm text-muted-foreground flex items-center gap-4">
             <span className="font-semibold">Skill Depth:</span>
             <button

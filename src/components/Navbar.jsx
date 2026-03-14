@@ -7,11 +7,11 @@ import { Github, Menu, X } from "lucide-react";
 const navItems = [
     {name: "Home", href: "/"},
     {name: "Projects", href: "/projects"},
-    {name: "Gallery", href: "/gallery"},
     {name: "Experiences", href: "/experiences"},
-    {name: "GitHub", href: "https://github.com/xaderF", external: true},
+    {name: "Visuals", href: "/gallery"},
     {name: "Resume", href: "/resume"},
     {name: "Contact", href: "/contact"},
+    {name: "GitHub", href: "https://github.com/xaderF", external: true},
 ];
 
 export const Navbar = () => {
@@ -92,7 +92,7 @@ export const Navbar = () => {
                     </button>
 
                     <a
-                        className="hidden md:inline-flex absolute right-full mr-4 text-foreground hover:text-primary transition-colors duration-300 items-center gap-1.5 whitespace-nowrap font-medium [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]"
+                        className="hidden md:inline-flex absolute right-full mr-4 text-base text-foreground hover:text-primary transition-colors duration-300 items-center gap-1.5 whitespace-nowrap font-medium [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]"
                         href="https://github.com/xaderF"
                         target="_blank"
                         rel="noreferrer"
@@ -103,14 +103,14 @@ export const Navbar = () => {
                 </div>
                 
                 {/* desktop nav */}
-                <div className="hidden md:flex items-center md:text-sm lg:text-base md:w-[500px] lg:w-[590px] xl:w-[650px]">
+                <div className="hidden md:flex items-center text-[1.08rem] md:w-[540px] lg:w-[620px] xl:w-[690px]">
                     {desktopNavItems.map((item, key) => (
                         item.external ? (
                             <a
                                 key={key}
                                 className={cn(
-                                    "text-foreground hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5 whitespace-nowrap font-medium [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]",
-                                    key > 0 ? "ml-4 lg:ml-5" : ""
+                                    "text-[1.08rem] text-foreground hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5 whitespace-nowrap font-medium [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]",
+                                    key > 0 ? "ml-6 lg:ml-7" : ""
                                 )}
                                 href={item.href}
                                 target="_blank"
@@ -123,8 +123,8 @@ export const Navbar = () => {
                             <button
                                 key={key}
                                 className={cn(
-                                    "text-foreground hover:text-primary transition-colors duration-300 bg-transparent border-none cursor-pointer whitespace-nowrap font-medium [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]",
-                                    key > 0 ? "ml-4 lg:ml-5" : ""
+                                    "text-[1.08rem] text-foreground hover:text-primary transition-colors duration-300 bg-transparent border-none cursor-pointer whitespace-nowrap font-medium [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]",
+                                    key > 0 ? "ml-6 lg:ml-7" : ""
                                 )}
                                 onClick={() => handleNavClick(item.href)}
                                 style={{ background: "none", border: "none", padding: 0 }}
