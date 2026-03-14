@@ -1,5 +1,40 @@
 export const projects = [
   {
+    id: 6,
+    slug: "utransit",
+    title: "UTransit",
+    completedDate: "Mar 13, 2026",
+    isFeatured: false,
+    shortDescription:
+      "A hackathon project that rethinks campus transit planning with a streamlined flow for signup, ticket access, and rider account management.",
+    details: [
+      "UTransit was built under hackathon time constraints with a focus on reducing friction for everyday transit actions students actually need to complete quickly.",
+      "The experience centers on clear account-state transitions between onboarding, profile updates, ticket management, and settings so riders can find critical actions without hunting through menus."
+    ],
+    image: "/projects/UTransit/UTransit_home.png",
+    gallery: [
+      {
+        src: "/projects/UTransit/UTransit_signup.png",
+        alt: "UTransit signup screen"
+      },
+      {
+        src: "/projects/UTransit/UTransit_tickets.png",
+        alt: "UTransit tickets screen"
+      },
+      {
+        src: "/projects/UTransit/UTransit_profile.png",
+        alt: "UTransit profile screen"
+      },
+      {
+        src: "/projects/UTransit/UTransit_settings.png",
+        alt: "UTransit settings screen"
+      }
+    ],
+    tags: ["React", "Hackathon Project", "UX"],
+    demoUrl: null,
+    githubUrl: null
+  },
+  {
     id: 1,
     slug: "instareply",
     title: "InstaReply",
@@ -50,22 +85,22 @@ export const projects = [
       "VeloXType turns typing practice into a structured multiplayer experience. Instead of single-run tests, the project emphasizes repeatable performance in competitive rounds where consistency matters as much as raw speed.",
       "The app is designed to be scalable and type-safe, with clear separation between gameplay logic, progression systems, and data storage. This made it easier to iterate quickly on ranking and challenge features while keeping the experience responsive."
     ],
-    image: "/projects/veloxtype/project1_main_menu_photo.png",
+    image: "/projects/veloxtype/Velotype_main_menu_photo.png",
     gallery: [
       {
-        src: "/projects/veloxtype/project1_gameplay_photo.png",
+        src: "/projects/veloxtype/Velotype_gameplay_photo.png",
         alt: "VeloXType gameplay screen"
       },
       {
-        src: "/projects/veloxtype/project1_career_rank_photo.png",
+        src: "/projects/veloxtype/Velotype_career_rank_photo.png",
         alt: "VeloXType ranked career view"
       },
       {
-        src: "/projects/veloxtype/project1_stats_graph_photo.png",
+        src: "/projects/veloxtype/Velotype_stats_graph_photo.png",
         alt: "VeloXType performance stats graph"
       },
       {
-        src: "/projects/veloxtype/project1_freetype_photo.png",
+        src: "/projects/veloxtype/Velotype_freetype_photo.png",
         alt: "VeloXType free typing mode"
       }
     ],
@@ -85,22 +120,22 @@ export const projects = [
       "HiReady combines video-based interaction with analytics workflows so trainers can understand where learners get stuck and why. The project focuses on making signals useful instead of just collecting data.",
       "The system is structured around privacy-first design and role-based experiences, with dedicated flows for learners and instructors. This supports both content delivery and post-session analysis in one interface."
     ],
-    image: "/projects/HiReady/project2_login_page_photo.png",
+    image: "/projects/HiReady/HiReady_login_page_photo.png",
     gallery: [
       {
-        src: "/projects/HiReady/project2_student_end_photo.png",
+        src: "/projects/HiReady/HiReady_student_end_photo.png",
         alt: "HiReady student workflow screen"
       },
       {
-        src: "/projects/HiReady/project2_instructor_upload_video_photo.png",
+        src: "/projects/HiReady/HiReady_instructor_upload_video_photo.png",
         alt: "HiReady instructor upload screen"
       },
       {
-        src: "/projects/HiReady/project2_instructor_end_photo.png",
+        src: "/projects/HiReady/HiReady_instructor_end_photo.png",
         alt: "HiReady instructor dashboard"
       },
       {
-        src: "/projects/HiReady/project2_AI_chatroom_photo.png",
+        src: "/projects/HiReady/HiReady_AI_chatroom_photo.png",
         alt: "HiReady AI chatroom interface"
       }
     ],
@@ -120,10 +155,10 @@ export const projects = [
       "FlushFinder was created to support people with IBS, Crohn's disease, ulcerative colitis, and similar digestive conditions where immediate restroom access is essential.",
       "The project prioritizes speed and clarity in the interface, reducing friction from search to decision. It was developed during NewHacks 25 around a real-world accessibility challenge."
     ],
-    image: "/projects/FlushFinder/project3_main_menu_photo.png",
+    image: "/projects/FlushFinder/FlushFinder_main_menu_photo.png",
     gallery: [
       {
-        src: "/projects/FlushFinder/project3_login_page_photo.png",
+        src: "/projects/FlushFinder/FlushFinder_login_page_photo.png",
         alt: "FlushFinder login view"
       }
     ],

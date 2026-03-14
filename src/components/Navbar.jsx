@@ -6,9 +6,9 @@ import { Github, Menu, X } from "lucide-react";
 
 const navItems = [
     {name: "Home", href: "/"},
-    {name: "About", href: "#about"},
-    {name: "Skills", href: "#skills"},
     {name: "Projects", href: "/projects"},
+    {name: "Gallery", href: "/gallery"},
+    {name: "Experiences", href: "/experiences"},
     {name: "GitHub", href: "https://github.com/xaderF", external: true},
     {name: "Resume", href: "/resume"},
     {name: "Contact", href: "/contact"},
@@ -19,6 +19,7 @@ export const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
+    const desktopNavItems = navItems.filter((item) => item.name !== "GitHub");
 
     // Helper to scroll to section or top
     const scrollToSection = (id) => {
@@ -79,23 +80,38 @@ export const Navbar = () => {
         >
 
             <div className="container flex items-center justify-between md:pr-14 lg:pr-16">
-                <button
-                type="button"
-                className="text-lg lg:text-xl font-bold text-primary flex items-center bg-transparent border-none cursor-pointer p-0"
-                onClick={() => handleNavClick("/")}
-                >
-                    <span className="relative z-10">
-                        <span className="text-glow text-foreground"> Ryan Yu </span> Portfolio
-                    </span>
-                </button>
+                <div className="relative flex items-center">
+                    <button
+                    type="button"
+                    className="text-lg lg:text-xl font-bold text-primary flex items-center bg-transparent border-none cursor-pointer p-0"
+                    onClick={() => handleNavClick("/")}
+                    >
+                        <span className="relative z-10">
+                            <span className="text-glow text-foreground"> Ryan Yu </span> Portfolio
+                        </span>
+                    </button>
+
+                    <a
+                        className="hidden md:inline-flex absolute right-full mr-4 text-foreground hover:text-primary transition-colors duration-300 items-center gap-1.5 whitespace-nowrap font-medium [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]"
+                        href="https://github.com/xaderF"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        GitHub
+                        <Github size={16} />
+                    </a>
+                </div>
                 
                 {/* desktop nav */}
-                <div className="hidden md:flex items-center md:gap-4 lg:gap-6 xl:gap-8 md:text-sm lg:text-base">
-                    {navItems.map((item, key) => (
+                <div className="hidden md:flex items-center md:text-sm lg:text-base md:w-[500px] lg:w-[590px] xl:w-[650px]">
+                    {desktopNavItems.map((item, key) => (
                         item.external ? (
                             <a
                                 key={key}
-                                className="text-foreground/80 hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5 whitespace-nowrap"
+                                className={cn(
+                                    "text-foreground hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5 whitespace-nowrap font-medium [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]",
+                                    key > 0 ? "ml-4 lg:ml-5" : ""
+                                )}
                                 href={item.href}
                                 target="_blank"
                                 rel="noreferrer"
@@ -106,7 +122,10 @@ export const Navbar = () => {
                         ) : (
                             <button
                                 key={key}
-                                className="text-foreground/80 hover:text-primary transition-colors duration-300 bg-transparent border-none cursor-pointer whitespace-nowrap"
+                                className={cn(
+                                    "text-foreground hover:text-primary transition-colors duration-300 bg-transparent border-none cursor-pointer whitespace-nowrap font-medium [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]",
+                                    key > 0 ? "ml-4 lg:ml-5" : ""
+                                )}
                                 onClick={() => handleNavClick(item.href)}
                                 style={{ background: "none", border: "none", padding: 0 }}
                             >
@@ -140,7 +159,7 @@ export const Navbar = () => {
                             item.external ? (
                                 <a
                                     key={key}
-                                    className="text-foreground/80 hover:text-primary transition-colors duration-300 inline-flex items-center justify-center gap-2 text-xl"
+                                    className="text-foreground hover:text-primary transition-colors duration-300 inline-flex items-center justify-center gap-2 text-xl"
                                     href={item.href}
                                     target="_blank"
                                     rel="noreferrer"
@@ -152,7 +171,7 @@ export const Navbar = () => {
                             ) : (
                                 <button
                                     key={key}
-                                    className="text-foreground/80 hover:text-primary transition-colors duration-300 bg-transparent border-none cursor-pointer text-xl"
+                                    className="text-foreground hover:text-primary transition-colors duration-300 bg-transparent border-none cursor-pointer text-xl"
                                     onClick={() => {
                                         setIsMenuOpen(false);
                                         handleNavClick(item.href);
