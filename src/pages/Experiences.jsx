@@ -35,8 +35,8 @@ export const Experiences = () => (
               </GradientText>
             </h1>
             <p className="text-muted-foreground text-base md:text-lg max-w-3xl">
-              A static placeholder page for now. We can add internships, leadership, hackathons,
-              and other milestones here next.
+              This page is under construction. All internships, leadership, hackathons,
+              and other milestones will be added here.
             </p>
           </div>
         </div>
