@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { ProjectsAuroraBackground } from "../components/ProjectsAuroraBackground";
@@ -9,18 +9,16 @@ import { AllProjectsSection } from "../components/AllProjectsSection";
 export const Projects = () => {
   const location = useLocation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!location.hash) {
       window.scrollTo({ top: 0, behavior: "auto" });
       return;
     }
 
-    const id = location.hash.replace("#", "");
+    const id = decodeURIComponent(location.hash.replace("#", ""));
     const target = document.getElementById(id);
     if (target) {
-      setTimeout(() => {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 120);
+      target.scrollIntoView({ behavior: "auto", block: "start" });
     }
   }, [location.hash]);
 

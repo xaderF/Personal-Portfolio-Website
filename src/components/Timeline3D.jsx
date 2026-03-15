@@ -12,7 +12,6 @@ export default function Timeline3D({
   events,
   backgroundClassName = defaultColors.background,
   primaryColor = defaultColors.primary,
-  accentColor = defaultColors.accent,
   showImages = true,
   className = ""
 }) {
@@ -39,13 +38,7 @@ export default function Timeline3D({
   }, []);
 
   const resolveProjectCTA = (event) => {
-    const projectTypes = new Set([
-      "hackathon",
-      "project",
-      "large-project",
-      "product-shipment",
-      "shipped-product"
-    ]);
+    const projectTypes = new Set(["hackathon", "project"]);
 
     if (!projectTypes.has(event.type)) return null;
 
@@ -205,7 +198,7 @@ export default function Timeline3D({
                         {event.category ? (
                           <span
                             className="rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-white"
-                            style={{ background: accentColor }}
+                            style={{ background: nodeColor }}
                           >
                             {event.category}
                           </span>
@@ -219,7 +212,7 @@ export default function Timeline3D({
                       </div>
                     </div>
 
-                    <h3 className="text-2xl md:text-3xl font-bold mb-1.5">{event.title}</h3>
+                    <h3 className="text-2xl md:text-3xl font-bold mb-4">{event.title}</h3>
                     <AnimatePresence initial={false}>
                       {isExpanded ? (
                         <motion.div
@@ -230,7 +223,7 @@ export default function Timeline3D({
                           transition={{ duration: 0.26 }}
                           className="overflow-hidden"
                         >
-                          <p className="text-sm md:text-base text-muted-foreground mt-2 leading-relaxed whitespace-pre-line">
+                          <p className="text-base md:text-lg text-muted-foreground mt-3 leading-relaxed whitespace-pre-line">
                             {event.description}
                           </p>
                           {cta ? (

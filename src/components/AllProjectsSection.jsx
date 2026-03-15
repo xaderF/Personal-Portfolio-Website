@@ -105,7 +105,7 @@ export const AllProjectsSection = () => {
                           <img
                             src={selectedImage.src}
                             alt={selectedImage.alt}
-                            className="block w-auto max-w-full h-auto max-h-[360px] md:max-h-[420px] lg:max-h-[500px] object-contain origin-center [transform:scaleY(1.10)]"
+                            className="block w-auto max-w-full h-auto object-contain origin-center"
                             loading="lazy"
                           />
                         </figure>
