@@ -12,12 +12,13 @@ export default function Timeline3D({
   events,
   backgroundClassName = defaultColors.background,
   primaryColor = defaultColors.primary,
-  secondaryColor = defaultColors.secondary,
   accentColor = defaultColors.accent,
   showImages = true,
   className = ""
 }) {
   const [activeEvent, setActiveEvent] = useState(null);
+  const [hoveredEvent, setHoveredEvent] = useState(null);
+  const [failedImages, setFailedImages] = useState({});
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef(null);
 
@@ -61,34 +62,9 @@ export default function Timeline3D({
   return (
     <div
       ref={containerRef}
-      className={`w-full overflow-hidden ${backgroundClassName} ${className}`}
+      className={`w-full ${backgroundClassName} ${className}`}
     >
-      <div className="relative max-w-[90rem] mx-auto px-1 md:px-3">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          {Array.from({ length: 7 }).map((_, index) => (
-            <motion.div
-              key={`timeline-sphere-${index}`}
-              className="absolute rounded-full opacity-20"
-              style={{
-                background: index % 2 === 0 ? primaryColor : secondaryColor,
-                width: `${40 + index * 18}px`,
-                height: `${40 + index * 18}px`,
-                filter: "blur(10px)"
-              }}
-              animate={{
-                x: [`${10 + index * 8}%`, `${20 + index * 9}%`, `${12 + index * 7}%`],
-                y: [`${8 + index * 10}%`, `${18 + index * 8}%`, `${28 + index * 7}%`]
-              }}
-              transition={{
-                duration: 14 + index * 2,
-                ease: "easeInOut",
-                repeat: Infinity,
-                repeatType: "mirror"
-              }}
-            />
-          ))}
-        </div>
-
+      <div className="relative max-w-[96rem] mx-auto px-4 md:px-10">
         <motion.h2
           className="relative z-10 text-3xl md:text-4xl font-bold text-center mb-12"
           initial={{ opacity: 0, y: 18 }}
@@ -109,12 +85,13 @@ export default function Timeline3D({
             const isEven = index % 2 === 0;
             const nodeColor = event.color || primaryColor;
             const cta = resolveProjectCTA(event);
+            const isExpanded = hoveredEvent === event.id || activeEvent === event.id;
 
             return (
               <motion.div
                 key={event.id}
-                className={`relative mb-14 pl-14 md:pl-0 md:w-[52%] ${
-                  isEven ? "md:ml-auto md:pl-8" : "md:mr-auto md:pr-8"
+                className={`relative mb-14 pl-14 md:pl-0 md:w-1/2 ${
+                  isEven ? "md:ml-auto" : "md:mr-auto"
                 }`}
                 initial={{ opacity: 0, x: isEven ? 50 : -50, y: 18 }}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
@@ -122,73 +99,129 @@ export default function Timeline3D({
                 transition={{ duration: 0.65, ease: "easeOut" }}
               >
                 <div
-                  className={`absolute top-4 left-5 md:left-auto md:top-5 z-20 ${
-                    isEven ? "md:left-0 md:-translate-x-1/2" : "md:right-0 md:translate-x-1/2"
+                  className={`hidden md:flex absolute top-5 h-10 z-20 items-center ${
+                    isEven ? "right-full mr-4" : "left-full ml-4"
                   }`}
                 >
-                  <motion.button
-                    type="button"
-                    className="w-10 h-10 rounded-full border-4 border-background text-white font-semibold flex items-center justify-center"
-                    style={{ background: nodeColor }}
-                    whileHover={{ scale: 1.12 }}
-                    onClick={() => setActiveEvent(activeEvent === event.id ? null : event.id)}
-                  >
-                    {index + 1}
-                  </motion.button>
+                  {isEven ? (
+                    <>
+                      <span className="text-primary text-lg md:text-xl font-semibold whitespace-nowrap tracking-tight">
+                        {event.date}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-primary text-lg md:text-xl font-semibold whitespace-nowrap tracking-tight">
+                        {event.date}
+                      </span>
+                    </>
+                  )}
                 </div>
 
-                <motion.div
-                  className={`rounded-2xl border border-border/55 bg-card/65 overflow-hidden shadow-lg ${
-                    isEven ? "md:ml-4" : "md:mr-4"
-                  }`}
-                  onMouseEnter={() => setActiveEvent(event.id)}
-                  onMouseLeave={() => setActiveEvent(null)}
+                <div
+                  className="relative"
+                  onMouseEnter={() => setHoveredEvent(event.id)}
+                  onMouseLeave={() => setHoveredEvent((current) => (current === event.id ? null : current))}
+                >
+                  <div
+                    className={`hidden md:block absolute top-5 z-30 ${
+                      isEven ? "left-0 translate-x-6" : "right-0 -translate-x-6"
+                    }`}
+                  >
+                    <motion.button
+                      type="button"
+                      className="w-10 h-10 rounded-full border-4 border-background text-white font-semibold flex items-center justify-center"
+                      style={{ background: nodeColor }}
+                      whileHover={{ scale: 1.12 }}
+                      onClick={() => setActiveEvent(activeEvent === event.id ? null : event.id)}
+                    >
+                      {index + 1}
+                    </motion.button>
+                  </div>
+
+                  <div className="absolute top-4 left-5 z-20 md:hidden">
+                    <motion.button
+                      type="button"
+                      className="w-10 h-10 rounded-full border-4 border-background text-white font-semibold flex items-center justify-center"
+                      style={{ background: nodeColor }}
+                      whileHover={{ scale: 1.12 }}
+                      onClick={() => setActiveEvent(activeEvent === event.id ? null : event.id)}
+                    >
+                      {index + 1}
+                    </motion.button>
+                  </div>
+
+                  <motion.div
+                    className={`relative rounded-2xl border border-border/70 bg-card/65 overflow-hidden shadow-lg min-h-[22rem] md:min-h-[24rem] md:w-[84%] ${
+                      isEven ? "md:ml-28" : "md:mr-28"
+                    }`}
                   whileHover={{ y: -5, x: isEven ? 4 : -4 }}
                   style={{
                     transformStyle: "preserve-3d",
                     transform: `perspective(1000px) rotateY(${mousePosition.x * (isEven ? -2.8 : 2.8)}deg) rotateX(${mousePosition.y * -2.8}deg)`
                   }}
                 >
-                  {showImages && event.image ? (
-                    <div className="relative h-52 md:h-56 overflow-hidden">
-                      <motion.img
-                        src={event.image}
-                        alt={event.title}
-                        className="w-full h-full object-cover"
-                        animate={{
-                          scale: activeEvent === event.id ? 1.05 : 1,
-                          y: activeEvent === event.id ? -8 : 0
-                        }}
-                        transition={{ duration: 0.6 }}
-                      />
+                  {showImages ? (
+                    <motion.div
+                      className="absolute inset-x-0 top-0 h-52 md:h-56 overflow-hidden pointer-events-none"
+                      animate={isExpanded ? { y: "-110%", opacity: 0 } : { y: "0%", opacity: 1 }}
+                      transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      {event.image && !failedImages[event.id] ? (
+                        <img
+                          src={event.image}
+                          alt={event.title}
+                          className="w-full h-full object-cover"
+                          onError={() =>
+                            setFailedImages((prev) => ({
+                              ...prev,
+                              [event.id]: true
+                            }))
+                          }
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800" />
+                      )}
                       <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-                      {event.category ? (
-                        <span
-                          className="absolute top-3 right-3 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-white"
-                          style={{ background: accentColor }}
-                        >
-                          {event.category}
-                        </span>
-                      ) : null}
-                    </div>
+                    </motion.div>
                   ) : null}
 
-                  <div className="p-6 md:p-7">
-                    <div className="flex items-center justify-between mb-2">
+                  <motion.div
+                    className="relative z-10 p-6 md:p-7"
+                    animate={
+                      showImages && event.image
+                        ? isExpanded
+                          ? { paddingTop: 24 }
+                          : { paddingTop: 232 }
+                        : undefined
+                    }
+                    transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                       <span className="text-xs md:text-sm uppercase tracking-[0.12em] text-primary font-semibold">
                         {event.date}
                       </span>
-                      <motion.span
-                        className="w-2.5 h-2.5 rounded-full"
-                        style={{ background: nodeColor }}
-                        animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.35, 1] }}
-                        transition={{ duration: 1.8, repeat: Infinity }}
-                      />
+                      <div className="flex items-center gap-3">
+                        {event.category ? (
+                          <span
+                            className="rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-white"
+                            style={{ background: accentColor }}
+                          >
+                            {event.category}
+                          </span>
+                        ) : null}
+                        <motion.span
+                          className="w-2.5 h-2.5 rounded-full"
+                          style={{ background: nodeColor }}
+                          animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.35, 1] }}
+                          transition={{ duration: 1.8, repeat: Infinity }}
+                        />
+                      </div>
                     </div>
 
                     <h3 className="text-2xl md:text-3xl font-bold mb-1.5">{event.title}</h3>
                     <AnimatePresence initial={false}>
-                      {activeEvent === event.id ? (
+                      {isExpanded ? (
                         <motion.div
                           key={`${event.id}-desc`}
                           initial={{ opacity: 0, height: 0 }}
@@ -197,7 +230,7 @@ export default function Timeline3D({
                           transition={{ duration: 0.26 }}
                           className="overflow-hidden"
                         >
-                          <p className="text-sm md:text-base text-muted-foreground mt-2 leading-relaxed">
+                          <p className="text-sm md:text-base text-muted-foreground mt-2 leading-relaxed whitespace-pre-line">
                             {event.description}
                           </p>
                           {cta ? (
@@ -212,8 +245,9 @@ export default function Timeline3D({
                         </motion.div>
                       ) : null}
                     </AnimatePresence>
-                  </div>
-                </motion.div>
+                  </motion.div>
+                  </motion.div>
+                </div>
               </motion.div>
             );
           })}

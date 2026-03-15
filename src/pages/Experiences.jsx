@@ -59,7 +59,7 @@ const placeholderTimelineEvents = [
 export const Experiences = () => (
   <div className="min-h-screen relative bg-background text-foreground overflow-x-hidden flex flex-col">
     <ThemeToggle />
-    <div className="fixed inset-0 pointer-events-none z-0">
+    <div className="fixed top-0 inset-x-0 h-[62vh] pointer-events-none z-0 overflow-hidden">
       <Orb
         hoverIntensity={2}
         rotateOnHover
@@ -67,6 +67,7 @@ export const Experiences = () => (
         forceHoverState={false}
         backgroundColor="#000000"
       />
+      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-background" />
     </div>
     <Navbar />
     <main className="relative z-10 flex-1">
@@ -92,7 +93,7 @@ export const Experiences = () => (
             </p>
           </div>
 
-          <div className="mt-14">
+          <div className="mt-14 relative left-1/2 -translate-x-1/2 w-[min(96vw,120rem)]">
             <Timeline3D events={placeholderTimelineEvents} />
           </div>
         </div>
