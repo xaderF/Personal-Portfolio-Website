@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useEffect, useLayoutEffect } from "react";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Projects } from "./pages/Projects";
 import { Contact } from "./pages/Contact";
@@ -9,12 +10,35 @@ import { NotFound } from "./pages/NotFound";
 import { Toaster } from "@/components/ui/toaster";
 import { ClickSparkOverlay } from "@/components/ClickSparkOverlay";
 
+function RouteScrollManager() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!("scrollRestoration" in window.history)) return undefined;
+
+    const previous = window.history.scrollRestoration;
+    window.history.scrollRestoration = "manual";
+
+    return () => {
+      window.history.scrollRestoration = previous;
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    if (location.hash) return;
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [location.pathname, location.hash]);
+
+  return null;
+}
+
 function App() {
   return (
     <>
       <ClickSparkOverlay />
       <Toaster /> 
       <BrowserRouter>
+        <RouteScrollManager />
         <Routes>
           <Route index element={<Home />} />
           <Route path="projects" element={<Projects />} />
