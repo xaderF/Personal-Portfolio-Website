@@ -52,6 +52,10 @@ export default function Timeline3D({
     return { label: "View Project", href: "/projects" };
   };
 
+  const entryRevealTransition = { duration: 0.9, ease: [0.22, 1, 0.36, 1] };
+  const expandTransition = { duration: 0.82, ease: [0.22, 1, 0.36, 1] };
+  const descriptionTransition = { duration: 0.62, ease: [0.22, 1, 0.36, 1] };
+
   return (
     <div
       ref={containerRef}
@@ -89,7 +93,7 @@ export default function Timeline3D({
                 initial={{ opacity: 0, x: isEven ? 50 : -50, y: 18 }}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
                 viewport={{ once: false, amount: 0.25 }}
-                transition={{ duration: 0.65, ease: "easeOut" }}
+                transition={entryRevealTransition}
               >
                 <div
                   className={`hidden md:flex absolute top-5 h-10 z-20 items-center ${
@@ -158,7 +162,7 @@ export default function Timeline3D({
                     <motion.div
                       className="absolute inset-x-0 top-0 h-52 md:h-56 overflow-hidden pointer-events-none"
                       animate={isExpanded ? { y: "-110%", opacity: 0 } : { y: "0%", opacity: 1 }}
-                      transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+                      transition={expandTransition}
                     >
                       {event.image && !failedImages[event.id] ? (
                         <img
@@ -188,7 +192,7 @@ export default function Timeline3D({
                           : { paddingTop: 232 }
                         : undefined
                     }
-                    transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+                    transition={expandTransition}
                   >
                     <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                       <span className="text-xs md:text-sm uppercase tracking-[0.12em] text-primary font-semibold">
@@ -220,7 +224,7 @@ export default function Timeline3D({
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: "auto" }}
                           exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.26 }}
+                          transition={descriptionTransition}
                           className="overflow-hidden"
                         >
                           <p className="text-base md:text-lg text-muted-foreground mt-3 leading-relaxed whitespace-pre-line">

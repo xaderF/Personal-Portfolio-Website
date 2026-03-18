@@ -70,13 +70,6 @@ export const HeroSection = () => {
         return () => clearTimeout(timer);
     }, [isDeleting, isWaiting, lineIndex, reduceMotion, typedText]);
 
-    const scrollToFeaturedProjects = () => {
-        const projectsSection = document.getElementById("projects");
-        if (projectsSection) {
-            projectsSection.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-    };
-
     return (
         <section 
             id="hero" 
@@ -104,14 +97,6 @@ export const HeroSection = () => {
                         <span className="typing-caret" aria-hidden="true" />
                     </p>
 
-                    <div className="pt-4 opacity-0 animate-fade-in-delay-4">
-                        <button 
-                            className="cosmic-button"
-                            onClick={scrollToFeaturedProjects}
-                        >
-                            View My Work
-                        </button>
-                    </div>
                 </div>
             </div>
 
