@@ -125,6 +125,9 @@ const Threads = ({
   amplitude = 1,
   distance = 0,
   enableMouseInteraction = false,
+  resolutionScale = 0.85,
+  maxDpr = 1.2,
+  pauseWhenHidden = true,
   ...rest
 }) => {
   const containerRef = useRef(null);
@@ -134,7 +137,10 @@ const Threads = ({
     if (!containerRef.current) return undefined;
     const container = containerRef.current;
 
-    const renderer = new Renderer({ alpha: true });
+    const renderer = new Renderer({
+      alpha: true,
+      dpr: Math.min(window.devicePixelRatio || 1, maxDpr),
+    });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.BLEND);
@@ -161,10 +167,13 @@ const Threads = ({
 
     function resize() {
       const { clientWidth, clientHeight } = container;
-      renderer.setSize(clientWidth, clientHeight);
-      program.uniforms.iResolution.value.r = clientWidth;
-      program.uniforms.iResolution.value.g = clientHeight;
-      program.uniforms.iResolution.value.b = clientWidth / clientHeight;
+      renderer.setSize(
+        Math.max(1, Math.floor(clientWidth * resolutionScale)),
+        Math.max(1, Math.floor(clientHeight * resolutionScale))
+      );
+      program.uniforms.iResolution.value.r = gl.drawingBufferWidth;
+      program.uniforms.iResolution.value.g = gl.drawingBufferHeight;
+      program.uniforms.iResolution.value.b = gl.drawingBufferWidth / gl.drawingBufferHeight;
     }
     window.addEventListener("resize", resize);
     resize();
@@ -202,11 +211,38 @@ const Threads = ({
       renderer.render({ scene: mesh });
       animationFrameId.current = requestAnimationFrame(update);
     }
-    animationFrameId.current = requestAnimationFrame(update);
+
+    const startLoop = () => {
+      if (!animationFrameId.current) {
+        animationFrameId.current = requestAnimationFrame(update);
+      }
+    };
+
+    const stopLoop = () => {
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+        animationFrameId.current = 0;
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (!pauseWhenHidden) return;
+      if (document.hidden) {
+        stopLoop();
+      } else {
+        startLoop();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    if (!pauseWhenHidden || !document.hidden) {
+      startLoop();
+    }
 
     return () => {
-      if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
+      stopLoop();
       window.removeEventListener("resize", resize);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
 
       if (enableMouseInteraction) {
         container.removeEventListener("mousemove", handleMouseMove);
@@ -215,7 +251,7 @@ const Threads = ({
       if (container.contains(gl.canvas)) container.removeChild(gl.canvas);
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-  }, [color, amplitude, distance, enableMouseInteraction]);
+  }, [color, amplitude, distance, enableMouseInteraction, resolutionScale, maxDpr, pauseWhenHidden]);
 
   return <div ref={containerRef} className="threads-container" {...rest} />;
 };

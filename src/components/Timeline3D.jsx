@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion as Motion } from "motion/react";
 
 const defaultColors = {
   background: "",
@@ -62,7 +62,7 @@ export default function Timeline3D({
       className={`w-full ${backgroundClassName} ${className}`}
     >
       <div className="relative max-w-[96rem] mx-auto px-4 md:px-10">
-        <motion.h2
+        <Motion.h2
           className="relative z-10 text-3xl md:text-4xl font-bold text-center mb-12"
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -70,7 +70,7 @@ export default function Timeline3D({
           transition={{ duration: 0.6 }}
         >
           3D Interactive Timeline
-        </motion.h2>
+        </Motion.h2>
 
         <div className="relative">
           <div
@@ -85,7 +85,7 @@ export default function Timeline3D({
             const isExpanded = hoveredEvent === event.id || activeEvent === event.id;
 
             return (
-              <motion.div
+              <Motion.div
                 key={event.id}
                 className={`relative mb-14 pl-14 md:pl-0 md:w-1/2 ${
                   isEven ? "md:ml-auto" : "md:mr-auto"
@@ -125,7 +125,7 @@ export default function Timeline3D({
                       isEven ? "left-0 translate-x-6" : "right-0 -translate-x-6"
                     }`}
                   >
-                    <motion.button
+                    <Motion.button
                       type="button"
                       className="w-10 h-10 rounded-full border-4 border-background text-white font-semibold flex items-center justify-center"
                       style={{ background: nodeColor }}
@@ -133,11 +133,11 @@ export default function Timeline3D({
                       onClick={() => setActiveEvent(activeEvent === event.id ? null : event.id)}
                     >
                       {index + 1}
-                    </motion.button>
+                    </Motion.button>
                   </div>
 
                   <div className="absolute top-4 left-5 z-20 md:hidden">
-                    <motion.button
+                    <Motion.button
                       type="button"
                       className="w-10 h-10 rounded-full border-4 border-background text-white font-semibold flex items-center justify-center"
                       style={{ background: nodeColor }}
@@ -145,10 +145,10 @@ export default function Timeline3D({
                       onClick={() => setActiveEvent(activeEvent === event.id ? null : event.id)}
                     >
                       {index + 1}
-                    </motion.button>
+                    </Motion.button>
                   </div>
 
-                  <motion.div
+                  <Motion.div
                     className={`relative rounded-2xl border border-border/70 bg-card/65 overflow-hidden shadow-lg min-h-[22rem] md:min-h-[24rem] md:w-[84%] ${
                       isEven ? "md:ml-28" : "md:mr-28"
                     }`}
@@ -159,7 +159,7 @@ export default function Timeline3D({
                   }}
                 >
                   {showImages ? (
-                    <motion.div
+                    <Motion.div
                       className="absolute inset-x-0 top-0 h-52 md:h-56 overflow-hidden pointer-events-none"
                       animate={isExpanded ? { y: "-110%", opacity: 0 } : { y: "0%", opacity: 1 }}
                       transition={expandTransition}
@@ -180,10 +180,10 @@ export default function Timeline3D({
                         <div className="w-full h-full bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800" />
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-                    </motion.div>
+                    </Motion.div>
                   ) : null}
 
-                  <motion.div
+                  <Motion.div
                     className="relative z-10 p-6 md:p-7"
                     animate={
                       showImages && event.image
@@ -207,7 +207,7 @@ export default function Timeline3D({
                             {event.category}
                           </span>
                         ) : null}
-                        <motion.span
+                        <Motion.span
                           className="w-2.5 h-2.5 rounded-full"
                           style={{ background: nodeColor }}
                           animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.35, 1] }}
@@ -219,7 +219,7 @@ export default function Timeline3D({
                     <h3 className="text-2xl md:text-3xl font-bold mb-4">{event.title}</h3>
                     <AnimatePresence initial={false}>
                       {isExpanded ? (
-                        <motion.div
+                        <Motion.div
                           key={`${event.id}-desc`}
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: "auto" }}
@@ -239,13 +239,13 @@ export default function Timeline3D({
                               {cta.label}
                             </a>
                           ) : null}
-                        </motion.div>
+                        </Motion.div>
                       ) : null}
                     </AnimatePresence>
-                  </motion.div>
-                  </motion.div>
+                  </Motion.div>
+                  </Motion.div>
                 </div>
-              </motion.div>
+              </Motion.div>
             );
           })}
         </div>

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import "./Masonry.css";
@@ -34,19 +34,6 @@ const useMeasure = () => {
   return [ref, size];
 };
 
-const preloadImages = async (urls) => {
-  await Promise.all(
-    urls.map(
-      (src) =>
-        new Promise((resolve) => {
-          const img = new Image();
-          img.src = src;
-          img.onload = img.onerror = () => resolve();
-        })
-    )
-  );
-};
-
 const ITEM_HEIGHT_DIVISOR = 1.45;
 
 const Masonry = ({
@@ -67,7 +54,6 @@ const Masonry = ({
   );
 
   const [containerRef, { width }] = useMeasure();
-  const [imagesReady, setImagesReady] = useState(false);
   const [activeIndex, setActiveIndex] = useState(null);
 
   const getInitialPosition = (item) => {
@@ -99,10 +85,6 @@ const Masonry = ({
     }
   };
 
-  useEffect(() => {
-    preloadImages(items.map((item) => item.img)).then(() => setImagesReady(true));
-  }, [items]);
-
   const grid = useMemo(() => {
     if (!width) return [];
 
@@ -129,8 +111,6 @@ const Masonry = ({
   const hasMounted = useRef(false);
 
   useLayoutEffect(() => {
-    if (!imagesReady) return;
-
     grid.forEach((item, index) => {
       const selector = `[data-key="${item.id}"]`;
       const animationProps = { x: item.x, y: item.y, width: item.w, height: item.h };
@@ -166,7 +146,7 @@ const Masonry = ({
 
     hasMounted.current = true;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [grid, imagesReady, stagger, animateFrom, blurToFocus, duration, ease]);
+  }, [grid, stagger, animateFrom, blurToFocus, duration, ease]);
 
   const handleMouseEnter = (event, item) => {
     const element = event.currentTarget;
@@ -208,20 +188,20 @@ const Masonry = ({
     }
   };
 
-  const closeLightbox = () => setActiveIndex(null);
-  const openLightboxAt = (index) => setActiveIndex(index);
-  const showPrev = () => {
+  const closeLightbox = useCallback(() => setActiveIndex(null), []);
+  const openLightboxAt = useCallback((index) => setActiveIndex(index), []);
+  const showPrev = useCallback(() => {
     setActiveIndex((prev) => {
       if (prev === null) return prev;
       return (prev - 1 + grid.length) % grid.length;
     });
-  };
-  const showNext = () => {
+  }, [grid.length]);
+  const showNext = useCallback(() => {
     setActiveIndex((prev) => {
       if (prev === null) return prev;
       return (prev + 1) % grid.length;
     });
-  };
+  }, [grid.length]);
 
   useEffect(() => {
     if (activeIndex === null) return undefined;
@@ -240,7 +220,7 @@ const Masonry = ({
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [activeIndex, grid.length]);
+  }, [activeIndex, closeLightbox, showPrev, showNext]);
 
   return (
     <>
@@ -291,6 +271,8 @@ const Masonry = ({
               src={grid[activeIndex].img}
               alt={`Expanded view ${activeIndex + 1}`}
               className="masonry-lightbox-image"
+              loading="eager"
+              decoding="async"
             />
 
             <button className="masonry-lightbox-nav masonry-lightbox-nav--right" type="button" onClick={showNext} aria-label="Next image">
@@ -306,7 +288,7 @@ const Masonry = ({
                   onClick={() => openLightboxAt(index)}
                   aria-label={`View image ${index + 1}`}
                 >
-                  <img src={item.img} alt="" />
+                  <img src={item.img} alt="" loading="lazy" decoding="async" />
                 </button>
               ))}
             </div>

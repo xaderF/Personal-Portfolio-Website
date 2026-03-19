@@ -1,15 +1,16 @@
-import { useEffect, useLayoutEffect } from "react";
+import { Suspense, lazy, useEffect, useLayoutEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import { Home } from "./pages/Home";
-import { Projects } from "./pages/Projects";
-import { Resume } from "./pages/Resume";
-import { Gallery } from "./pages/Gallery";
-import { Experiences } from "./pages/Experiences";
-import { Skills } from "./pages/Skills";
-import { NotFound } from "./pages/NotFound";
 import { Toaster } from "@/components/ui/toaster";
 import { ClickSparkOverlay } from "@/components/ClickSparkOverlay";
 import { PerformanceStats } from "@/components/PerformanceStats";
+
+const Home = lazy(() => import("./pages/Home"));
+const Projects = lazy(() => import("./pages/Projects"));
+const Resume = lazy(() => import("./pages/Resume"));
+const Gallery = lazy(() => import("./pages/Gallery"));
+const Experiences = lazy(() => import("./pages/Experiences"));
+const Skills = lazy(() => import("./pages/Skills"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 function RouteScrollManager() {
   const location = useLocation();
@@ -41,15 +42,17 @@ function App() {
       <Toaster /> 
       <BrowserRouter>
         <RouteScrollManager />
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="projects" element={<Projects />} />
-          <Route path="skills" element={<Skills />} />
-          <Route path="gallery" element={<Gallery />} />
-          <Route path="experiences" element={<Experiences />} />
-          <Route path="resume" element={<Resume />} />
-          <Route path='*' element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="projects" element={<Projects />} />
+            <Route path="skills" element={<Skills />} />
+            <Route path="gallery" element={<Gallery />} />
+            <Route path="experiences" element={<Experiences />} />
+            <Route path="resume" element={<Resume />} />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </>
   );

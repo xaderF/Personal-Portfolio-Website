@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useTransform } from "motion/react";
+import { motion as Motion, useMotionValue, useTransform } from "motion/react";
 import { useState, useEffect } from "react";
 import "./Stack.css";
 
@@ -19,14 +19,14 @@ function CardRotate({ children, onSendToBack, sensitivity, disableDrag = false }
 
   if (disableDrag) {
     return (
-      <motion.div className="card-rotate-disabled" style={{ x: 0, y: 0 }}>
+      <Motion.div className="card-rotate-disabled" style={{ x: 0, y: 0 }}>
         {children}
-      </motion.div>
+      </Motion.div>
     );
   }
 
   return (
-    <motion.div
+    <Motion.div
       className="card-rotate"
       style={{ x, y, rotateX, rotateY }}
       drag
@@ -36,7 +36,7 @@ function CardRotate({ children, onSendToBack, sensitivity, disableDrag = false }
       onDragEnd={handleDragEnd}
     >
       {children}
-    </motion.div>
+    </Motion.div>
   );
 }
 
@@ -159,7 +159,7 @@ export default function Stack({
             sensitivity={sensitivity}
             disableDrag={shouldDisableDrag}
           >
-            <motion.div
+            <Motion.div
               className="card"
               onClick={() => shouldEnableClick && sendToBack(card.id)}
               animate={{
@@ -175,7 +175,7 @@ export default function Stack({
               }}
             >
               {card.content}
-            </motion.div>
+            </Motion.div>
           </CardRotate>
         );
       })}

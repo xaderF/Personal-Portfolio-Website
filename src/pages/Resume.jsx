@@ -18,6 +18,8 @@ export const Resume = () => (
             src="/resume.png"
             alt="Resume"
             className="w-full max-w-3xl mx-auto rounded-lg shadow-lg border border-primary"
+            loading="eager"
+            decoding="async"
             style={{ background: "white" }}
           />
           <div className="flex justify-center mt-6">

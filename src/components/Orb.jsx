@@ -5,9 +5,13 @@ import "./Orb.css";
 export default function Orb({
   hue = 0,
   hoverIntensity = 0.2,
+  interactive = true,
   rotateOnHover = true,
   forceHoverState = false,
-  backgroundColor = "#000000"
+  backgroundColor = "#000000",
+  resolutionScale = 0.9,
+  maxDpr = 1.25,
+  pauseWhenHidden = true
 }) {
   const ctnDom = useRef(null);
 
@@ -187,10 +191,16 @@ export default function Orb({
     const container = ctnDom.current;
     if (!container) return undefined;
 
-    const renderer = new Renderer({ alpha: true, premultipliedAlpha: false });
+    const renderer = new Renderer({
+      alpha: true,
+      premultipliedAlpha: false,
+      dpr: Math.min(window.devicePixelRatio || 1, maxDpr)
+    });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
     container.appendChild(gl.canvas);
+
+    const backgroundColorVec = hexToVec3(backgroundColor);
 
     const geometry = new Triangle(gl);
     const program = new Program(gl, {
@@ -205,17 +215,19 @@ export default function Orb({
         hover: { value: 0 },
         rot: { value: 0 },
         hoverIntensity: { value: hoverIntensity },
-        backgroundColor: { value: hexToVec3(backgroundColor) }
+        backgroundColor: { value: backgroundColorVec }
       }
     });
 
     const mesh = new Mesh(gl, { geometry, program });
 
     function resize() {
-      const dpr = window.devicePixelRatio || 1;
       const width = container.clientWidth;
       const height = container.clientHeight;
-      renderer.setSize(width * dpr, height * dpr);
+      renderer.setSize(
+        Math.max(1, Math.floor(width * resolutionScale)),
+        Math.max(1, Math.floor(height * resolutionScale))
+      );
       gl.canvas.style.width = `${width}px`;
       gl.canvas.style.height = `${height}px`;
       program.uniforms.iResolution.value.set(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height);
@@ -248,8 +260,10 @@ export default function Orb({
       targetHover = 0;
     };
 
-    container.addEventListener("mousemove", handleMouseMove);
-    container.addEventListener("mouseleave", handleMouseLeave);
+    if (interactive) {
+      container.addEventListener("mousemove", handleMouseMove);
+      container.addEventListener("mouseleave", handleMouseLeave);
+    }
 
     let rafId;
     const update = (time) => {
@@ -257,11 +271,8 @@ export default function Orb({
       const dt = (time - lastTime) * 0.001;
       lastTime = time;
       program.uniforms.iTime.value = time * 0.001;
-      program.uniforms.hue.value = hue;
-      program.uniforms.hoverIntensity.value = hoverIntensity;
-      program.uniforms.backgroundColor.value = hexToVec3(backgroundColor);
 
-      const effectiveHover = forceHoverState ? 1 : targetHover;
+      const effectiveHover = forceHoverState ? 1 : (interactive ? targetHover : 0);
       program.uniforms.hover.value += (effectiveHover - program.uniforms.hover.value) * 0.1;
 
       if (rotateOnHover && effectiveHover > 0.5) {
@@ -271,20 +282,49 @@ export default function Orb({
 
       renderer.render({ scene: mesh });
     };
-    rafId = requestAnimationFrame(update);
+
+    const startLoop = () => {
+      if (!rafId) {
+        rafId = requestAnimationFrame(update);
+      }
+    };
+
+    const stopLoop = () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (!pauseWhenHidden) return;
+      if (document.hidden) {
+        stopLoop();
+      } else {
+        startLoop();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    if (!pauseWhenHidden || !document.hidden) {
+      startLoop();
+    }
 
     return () => {
-      cancelAnimationFrame(rafId);
+      stopLoop();
       window.removeEventListener("resize", resize);
-      container.removeEventListener("mousemove", handleMouseMove);
-      container.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      if (interactive) {
+        container.removeEventListener("mousemove", handleMouseMove);
+        container.removeEventListener("mouseleave", handleMouseLeave);
+      }
       if (gl.canvas.parentNode === container) {
         container.removeChild(gl.canvas);
       }
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hue, hoverIntensity, rotateOnHover, forceHoverState, backgroundColor]);
+  }, [hue, hoverIntensity, interactive, rotateOnHover, forceHoverState, backgroundColor, resolutionScale, maxDpr, pauseWhenHidden]);
 
   return <div ref={ctnDom} className="orb-container" />;
 }

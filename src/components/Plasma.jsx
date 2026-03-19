@@ -92,6 +92,9 @@ export const Plasma = ({
   scale = 1,
   opacity = 1,
   mouseInteractive = true,
+  resolutionScale = 1,
+  maxDpr = 1.25,
+  pauseWhenHidden = true,
 }) => {
   const containerRef = useRef(null);
   const mousePos = useRef({ x: 0, y: 0 });
@@ -108,7 +111,7 @@ export const Plasma = ({
       webgl: 2,
       alpha: true,
       antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 2),
+      dpr: Math.min(window.devicePixelRatio || 1, maxDpr),
     });
     const gl = renderer.gl;
     const canvas = gl.canvas;
@@ -154,8 +157,8 @@ export const Plasma = ({
     const setSize = () => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
-      const width = Math.max(1, Math.floor(rect.width));
-      const height = Math.max(1, Math.floor(rect.height));
+      const width = Math.max(1, Math.floor(rect.width * resolutionScale));
+      const height = Math.max(1, Math.floor(rect.height * resolutionScale));
       renderer.setSize(width, height);
       const res = program.uniforms.iResolution.value;
       res[0] = gl.drawingBufferWidth;
@@ -187,14 +190,41 @@ export const Plasma = ({
       renderer.render({ scene: mesh });
       raf = requestAnimationFrame(loop);
     };
-    raf = requestAnimationFrame(loop);
+
+    const startLoop = () => {
+      if (!raf) {
+        raf = requestAnimationFrame(loop);
+      }
+    };
+
+    const stopLoop = () => {
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (!pauseWhenHidden) return;
+      if (document.hidden) {
+        stopLoop();
+      } else {
+        startLoop();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    if (!pauseWhenHidden || !document.hidden) {
+      startLoop();
+    }
 
     return () => {
-      cancelAnimationFrame(raf);
+      stopLoop();
       ro.disconnect();
       if (mouseInteractive && containerEl) {
         containerEl.removeEventListener("mousemove", handleMouseMove);
       }
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       try {
         containerEl?.removeChild(canvas);
       } catch {
@@ -202,7 +232,7 @@ export const Plasma = ({
       }
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-  }, [color, speed, direction, scale, opacity, mouseInteractive]);
+  }, [color, speed, direction, scale, opacity, mouseInteractive, resolutionScale, maxDpr, pauseWhenHidden]);
 
   return <div ref={containerRef} className="plasma-container" />;
 };

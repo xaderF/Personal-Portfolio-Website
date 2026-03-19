@@ -48,6 +48,8 @@ export const ResumeFloatingLinesBackground = () => {
         parallaxStrength={0.14}
         animationSpeed={0.9}
         mixBlendMode={themeConfig.mixBlendMode}
+        resolutionScale={0.9}
+        maxDpr={1.1}
       />
     </div>
   );

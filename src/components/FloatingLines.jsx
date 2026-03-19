@@ -249,6 +249,9 @@ export default function FloatingLines({
   parallax = true,
   parallaxStrength = 0.2,
   mixBlendMode = "screen",
+  resolutionScale = 1,
+  maxDpr = 1.25,
+  pauseWhenHidden = true,
   className = "",
 }) {
   const containerRef = useRef(null);
@@ -282,17 +285,18 @@ export default function FloatingLines({
   const bottomLineDistance = enabledWaves.includes("bottom") ? getLineDistance("bottom") * 0.01 : 0.01;
 
   useEffect(() => {
-    if (!containerRef.current) return undefined;
+    const container = containerRef.current;
+    if (!container) return undefined;
 
     const scene = new Scene();
     const camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
     camera.position.z = 1;
 
     const renderer = new WebGLRenderer({ antialias: true, alpha: false });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxDpr));
     renderer.domElement.style.width = "100%";
     renderer.domElement.style.height = "100%";
-    containerRef.current.appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement);
 
     const uniforms = {
       iTime: { value: 0 },
@@ -368,9 +372,8 @@ export default function FloatingLines({
     const clock = new Clock();
 
     const setSize = () => {
-      const el = containerRef.current;
-      const width = el?.clientWidth || 1;
-      const height = el?.clientHeight || 1;
+      const width = Math.max(1, Math.floor(container.clientWidth * resolutionScale));
+      const height = Math.max(1, Math.floor(container.clientHeight * resolutionScale));
 
       renderer.setSize(width, height, false);
       uniforms.iResolution.value.set(renderer.domElement.width, renderer.domElement.height, 1);
@@ -379,8 +382,8 @@ export default function FloatingLines({
     setSize();
 
     const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(setSize) : null;
-    if (ro && containerRef.current) {
-      ro.observe(containerRef.current);
+    if (ro) {
+      ro.observe(container);
     }
 
     const handlePointerMove = event => {
@@ -430,13 +433,38 @@ export default function FloatingLines({
       renderer.render(scene, camera);
       raf = requestAnimationFrame(renderLoop);
     };
-    renderLoop();
+
+    const startLoop = () => {
+      if (!raf) {
+        raf = requestAnimationFrame(renderLoop);
+      }
+    };
+
+    const stopLoop = () => {
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (!pauseWhenHidden) return;
+      if (document.hidden) {
+        stopLoop();
+      } else {
+        startLoop();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    if (!pauseWhenHidden || !document.hidden) {
+      startLoop();
+    }
 
     return () => {
-      cancelAnimationFrame(raf);
-      if (ro && containerRef.current) {
-        ro.disconnect();
-      }
+      stopLoop();
+      ro?.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
 
       if (interactive) {
         renderer.domElement.removeEventListener("pointermove", handlePointerMove);
@@ -465,6 +493,9 @@ export default function FloatingLines({
     mouseDamping,
     parallax,
     parallaxStrength,
+    resolutionScale,
+    maxDpr,
+    pauseWhenHidden,
     topLineCount,
     middleLineCount,
     bottomLineCount,

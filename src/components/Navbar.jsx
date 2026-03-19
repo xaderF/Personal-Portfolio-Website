@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { cn } from "@/lib/utils";
-import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Github, Menu, X } from "lucide-react";
 
@@ -65,11 +64,18 @@ export const Navbar = () => {
     }, [location.pathname]);
 
     useEffect(() => {
+        let ticking = false;
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 10);
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                setIsScrolled(window.scrollY > 10);
+                ticking = false;
+            });
         };
 
-        window.addEventListener("scroll", handleScroll)
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        handleScroll();
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
     return (

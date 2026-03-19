@@ -97,6 +97,8 @@ const Particles = ({
   cameraDistance = 20,
   disableRotation = false,
   pixelRatio = 1,
+  maxDpr = 1.2,
+  pauseWhenHidden = true,
   className = "",
 }) => {
   const containerRef = useRef(null);
@@ -105,9 +107,10 @@ const Particles = ({
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+    const resolvedDpr = Math.min(pixelRatio, maxDpr);
 
     const renderer = new Renderer({
-      dpr: pixelRatio,
+      dpr: resolvedDpr,
       depth: false,
       alpha: true,
     });
@@ -135,7 +138,7 @@ const Particles = ({
     };
 
     if (moveParticlesOnHover) {
-      window.addEventListener("pointermove", handleMouseMove, { passive: true });
+      container.addEventListener("pointermove", handleMouseMove, { passive: true });
     }
 
     const count = particleCount;
@@ -175,7 +178,7 @@ const Particles = ({
       uniforms: {
         uTime: { value: 0 },
         uSpread: { value: particleSpread },
-        uBaseSize: { value: particleBaseSize * pixelRatio },
+        uBaseSize: { value: particleBaseSize * resolvedDpr },
         uSizeRandomness: { value: sizeRandomness },
         uAlphaParticles: { value: alphaParticles ? 1 : 0 },
       },
@@ -214,14 +217,40 @@ const Particles = ({
       renderer.render({ scene: particles, camera });
     };
 
-    animationFrameId = requestAnimationFrame(update);
+    const startLoop = () => {
+      if (!animationFrameId) {
+        animationFrameId = requestAnimationFrame(update);
+      }
+    };
+
+    const stopLoop = () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = 0;
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (!pauseWhenHidden) return;
+      if (document.hidden) {
+        stopLoop();
+      } else {
+        startLoop();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    if (!pauseWhenHidden || !document.hidden) {
+      startLoop();
+    }
 
     return () => {
       window.removeEventListener("resize", resize);
       if (moveParticlesOnHover) {
-        window.removeEventListener("pointermove", handleMouseMove);
+        container.removeEventListener("pointermove", handleMouseMove);
       }
-      cancelAnimationFrame(animationFrameId);
+      stopLoop();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       if (container.contains(gl.canvas)) {
         container.removeChild(gl.canvas);
       }
@@ -239,6 +268,8 @@ const Particles = ({
     cameraDistance,
     disableRotation,
     pixelRatio,
+    maxDpr,
+    pauseWhenHidden,
   ]);
 
   return <div ref={containerRef} className={`particles-container ${className}`.trim()} />;

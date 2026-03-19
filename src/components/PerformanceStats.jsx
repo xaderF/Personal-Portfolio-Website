@@ -12,6 +12,7 @@ export const PerformanceStats = () => {
 
   useEffect(() => {
     let mounted = true;
+    let latencyInterval = 0;
 
     const tick = (timestamp) => {
       if (!fpsWindowStartRef.current) {
@@ -31,9 +32,28 @@ export const PerformanceStats = () => {
       rafRef.current = requestAnimationFrame(tick);
     };
 
-    rafRef.current = requestAnimationFrame(tick);
+    const startLoop = () => {
+      if (!rafRef.current) {
+        rafRef.current = requestAnimationFrame(tick);
+      }
+    };
+
+    const stopLoop = () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = 0;
+      }
+    };
 
     const sampleLatency = async () => {
+      if (document.hidden) return;
+
+      const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if (connection?.rtt && Number.isFinite(connection.rtt) && connection.rtt > 0) {
+        setLatency(connection.rtt);
+        return;
+      }
+
       const controller = new AbortController();
       const timeoutId = window.setTimeout(() => controller.abort(), 4500);
       const startedAt = performance.now();
@@ -59,12 +79,24 @@ export const PerformanceStats = () => {
       }
     };
 
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopLoop();
+      } else {
+        startLoop();
+        sampleLatency();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    startLoop();
     sampleLatency();
-    const latencyInterval = window.setInterval(sampleLatency, 12000);
+    latencyInterval = window.setInterval(sampleLatency, 20000);
 
     return () => {
       mounted = false;
-      cancelAnimationFrame(rafRef.current);
+      stopLoop();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.clearInterval(latencyInterval);
     };
   }, []);

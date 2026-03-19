@@ -144,6 +144,8 @@ export const Gallery = () => {
             scale={1.1}
             opacity={0.85}
             mouseInteractive={false}
+            resolutionScale={0.8}
+            maxDpr={1.1}
           />
         ) : (
           <>
@@ -156,6 +158,8 @@ export const Gallery = () => {
                 scale={1.12}
                 opacity={0.45}
                 mouseInteractive={false}
+                resolutionScale={0.75}
+                maxDpr={1.0}
               />
             </div>
           </>
@@ -197,6 +201,8 @@ export const Gallery = () => {
                       alt={`placeholder-card-${i + 1}`}
                       onLoad={handleImageLoad(src)}
                       style={getImageStyle(src)}
+                      loading={i === 0 ? "eager" : "lazy"}
+                      decoding="async"
                     />
                   ))}
                   autoplay={false}

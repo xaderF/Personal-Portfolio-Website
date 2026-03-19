@@ -8,7 +8,13 @@ export const Skills = () => (
   <div className="min-h-screen relative bg-background text-foreground overflow-x-hidden flex flex-col">
     <ThemeToggle />
     <div className="fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
-      <Threads amplitude={1} distance={0} enableMouseInteraction />
+      <Threads
+        amplitude={1}
+        distance={0}
+        enableMouseInteraction
+        resolutionScale={0.82}
+        maxDpr={1.0}
+      />
     </div>
     <Navbar />
     <main className="relative z-10 flex-1">

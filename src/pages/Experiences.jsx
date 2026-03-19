@@ -12,10 +12,13 @@ export const Experiences = () => (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       <Orb
         hoverIntensity={2}
+        interactive={false}
         rotateOnHover
         hue={0}
         forceHoverState={false}
         backgroundColor="#000000"
+        resolutionScale={0.9}
+        maxDpr={1.1}
       />
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-background" />
     </div>
