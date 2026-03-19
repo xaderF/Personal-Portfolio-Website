@@ -1,12 +1,12 @@
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { ThemeToggle } from "../components/ThemeToggle";
-import DarkVeil from "../components/DarkVeil";
+import Plasma from "../components/Plasma";
 import { ArrowDown } from "lucide-react";
 import Stack from "../components/Stack";
 import Masonry from "../components/Masonry";
 import GradientText from "../components/GradientText";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const placeholderImages = [
   "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?q=80&w=500&auto=format",
@@ -68,6 +68,24 @@ const masonryItems = [
 
 export const Gallery = () => {
   const [imageRatios, setImageRatios] = useState({});
+  const [isDark, setIsDark] = useState(() =>
+    document.documentElement.classList.contains("dark")
+  );
+
+  useEffect(() => {
+    const updateTheme = () => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    };
+
+    updateTheme();
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleImageLoad = useCallback(
     (src) => (event) => {
@@ -118,14 +136,30 @@ export const Gallery = () => {
     <div className="min-h-screen relative bg-background text-foreground overflow-x-hidden flex flex-col">
       <ThemeToggle />
       <div className="fixed inset-0 pointer-events-none z-0">
-        <DarkVeil
-          hueShift={0}
-          noiseIntensity={0}
-          scanlineIntensity={0}
-          speed={0.5}
-          scanlineFrequency={0}
-          warpAmount={0}
-        />
+        {isDark ? (
+          <Plasma
+            color="#7d3cff"
+            speed={0.6}
+            direction="forward"
+            scale={1.1}
+            opacity={0.85}
+            mouseInteractive={false}
+          />
+        ) : (
+          <>
+            <div className="absolute inset-0 bg-background" />
+            <div className="absolute inset-0">
+              <Plasma
+                color="#b492ff"
+                speed={0.5}
+                direction="forward"
+                scale={1.12}
+                opacity={0.45}
+                mouseInteractive={false}
+              />
+            </div>
+          </>
+        )}
       </div>
       <Navbar />
       <main className="relative z-10 flex-1">

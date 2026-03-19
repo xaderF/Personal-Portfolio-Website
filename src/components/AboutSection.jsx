@@ -1,8 +1,27 @@
 import { Briefcase, Code, User } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const AboutSection = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const scrollToContact = () => {
+        const scroll = () => {
+            const contactSection = document.getElementById("contact");
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        };
+
+        if (location.pathname !== "/") {
+            navigate("/");
+            setTimeout(scroll, 220);
+            return;
+        }
+
+        scroll();
+    };
+
     return (
         <section id="about" className="py-24 px-4 relative">
             {" "} 
@@ -24,7 +43,7 @@ export const AboutSection = () => {
                         <div className="flex flex-col sm:flex-row gap-6 pt-4 justify-center">
                             <button
                                 className="cosmic-button"
-                                onClick={() => navigate('/contact')}
+                                onClick={scrollToContact}
                             >
                                 Get In Touch
                             </button>

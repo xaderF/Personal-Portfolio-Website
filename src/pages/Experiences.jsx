@@ -9,7 +9,7 @@ import { experienceTimelinePlaceholders } from "../data/experienceTimelineTempla
 export const Experiences = () => (
   <div className="min-h-screen relative bg-background text-foreground overflow-x-hidden flex flex-col">
     <ThemeToggle />
-    <div className="fixed top-0 inset-x-0 h-[62vh] pointer-events-none z-0 overflow-hidden">
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       <Orb
         hoverIntensity={2}
         rotateOnHover

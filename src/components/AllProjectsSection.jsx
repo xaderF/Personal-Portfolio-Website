@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
 import { projects } from "@/data/projectsData";
 import { getSafeExternalUrl } from "@/lib/utils";
 import { useChromaGridEffect } from "@/hooks/useChromaGridEffect";
@@ -62,14 +61,6 @@ export const AllProjectsSection = () => {
             additional screenshots for each project.
           </p>
         </div>
-
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors mb-10"
-        >
-          <ArrowLeft size={18} />
-          Back to Home
-        </Link>
 
         <div
           ref={rootRef}

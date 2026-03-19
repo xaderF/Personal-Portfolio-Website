@@ -79,8 +79,18 @@ export const Navbar = () => {
             )}
         >
 
-            <div className="container flex items-center justify-between md:pr-14 lg:pr-16">
-                <div className="relative flex items-center">
+            <div className="w-full flex items-center justify-between px-6 md:px-8 lg:px-10">
+                <div className="flex items-center gap-4 lg:gap-5">
+                    <a
+                        className="hidden md:inline-flex text-base text-foreground hover:text-primary transition-colors duration-300 items-center gap-1.5 whitespace-nowrap font-medium [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]"
+                        href="https://github.com/xaderF"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        GitHub
+                        <Github size={16} />
+                    </a>
+
                     <button
                     type="button"
                     className="text-lg lg:text-xl font-bold text-primary flex items-center bg-transparent border-none cursor-pointer p-0"
@@ -90,20 +100,10 @@ export const Navbar = () => {
                             <span className="text-glow text-foreground"> Ryan Yu </span> Portfolio
                         </span>
                     </button>
-
-                    <a
-                        className="hidden md:inline-flex absolute right-full mr-4 text-base text-foreground hover:text-primary transition-colors duration-300 items-center gap-1.5 whitespace-nowrap font-medium [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]"
-                        href="https://github.com/xaderF"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        GitHub
-                        <Github size={16} />
-                    </a>
                 </div>
                 
                 {/* desktop nav */}
-                <div className="hidden md:flex items-center text-[1.02rem] lg:text-[1.08rem] md:w-[620px] lg:w-[700px] xl:w-[760px]">
+                <div className="hidden md:flex flex-1 items-center justify-end pr-28 lg:pr-32 xl:pr-36 text-[1.02rem] lg:text-[1.08rem]">
                     {desktopNavItems.map((item, key) => (
                         item.external ? (
                             <a

@@ -9,6 +9,7 @@ import { Skills } from "./pages/Skills";
 import { NotFound } from "./pages/NotFound";
 import { Toaster } from "@/components/ui/toaster";
 import { ClickSparkOverlay } from "@/components/ClickSparkOverlay";
+import { PerformanceStats } from "@/components/PerformanceStats";
 
 function RouteScrollManager() {
   const location = useLocation();
@@ -36,6 +37,7 @@ function App() {
   return (
     <>
       <ClickSparkOverlay />
+      <PerformanceStats />
       <Toaster /> 
       <BrowserRouter>
         <RouteScrollManager />

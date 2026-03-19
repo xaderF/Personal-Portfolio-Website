@@ -18,6 +18,7 @@ uniform float uNoise;
 uniform float uScan;
 uniform float uScanFreq;
 uniform float uWarp;
+uniform float uTransparentBg;
 #define iTime uTime
 #define iResolution uResolution
 
@@ -70,7 +71,13 @@ void main(){
     float scanline_val=sin(gl_FragCoord.y*uScanFreq)*0.5+0.5;
     col.rgb*=1.-(scanline_val*scanline_val)*uScan;
     col.rgb+=(rand(gl_FragCoord.xy+uTime)-0.5)*uNoise;
-    gl_FragColor=vec4(clamp(col.rgb,0.0,1.0),1.0);
+    vec3 finalCol = clamp(col.rgb,0.0,1.0);
+    float alpha = 1.0;
+    if (uTransparentBg > 0.5) {
+      float veil = max(max(finalCol.r, finalCol.g), finalCol.b);
+      alpha = clamp(pow(smoothstep(0.015, 0.35, veil), 0.65), 0.0, 1.0);
+    }
+    gl_FragColor=vec4(finalCol, alpha);
 }
 `;
 
@@ -81,7 +88,8 @@ export default function DarkVeil({
   speed = 0.5,
   scanlineFrequency = 0,
   warpAmount = 0,
-  resolutionScale = 1
+  resolutionScale = 1,
+  transparentBackground = false
 }) {
   const ref = useRef(null);
 
@@ -108,7 +116,8 @@ export default function DarkVeil({
         uNoise: { value: noiseIntensity },
         uScan: { value: scanlineIntensity },
         uScanFreq: { value: scanlineFrequency },
-        uWarp: { value: warpAmount }
+        uWarp: { value: warpAmount },
+        uTransparentBg: { value: transparentBackground ? 1 : 0 }
       }
     });
 
@@ -134,6 +143,7 @@ export default function DarkVeil({
       program.uniforms.uScan.value = scanlineIntensity;
       program.uniforms.uScanFreq.value = scanlineFrequency;
       program.uniforms.uWarp.value = warpAmount;
+      program.uniforms.uTransparentBg.value = transparentBackground ? 1 : 0;
       renderer.render({ scene: mesh });
       frame = requestAnimationFrame(loop);
     };
@@ -144,7 +154,7 @@ export default function DarkVeil({
       cancelAnimationFrame(frame);
       window.removeEventListener("resize", resize);
     };
-  }, [hueShift, noiseIntensity, scanlineIntensity, speed, scanlineFrequency, warpAmount, resolutionScale]);
+  }, [hueShift, noiseIntensity, scanlineIntensity, speed, scanlineFrequency, warpAmount, resolutionScale, transparentBackground]);
 
   return <canvas ref={ref} className="darkveil-canvas" />;
 }

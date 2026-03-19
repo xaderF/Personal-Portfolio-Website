@@ -2,6 +2,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import LogoLoop from "./LogoLoop";
 import { ChevronDown, ChevronRight } from "lucide-react";
+import GradientText from "./GradientText";
 import {
   SiCplusplus,
   SiDocker,
@@ -194,9 +195,24 @@ export const SkillsSection = () => {
   return (
     <section id="skills" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-7 text-center">
-          My <span className="text-primary"> Skills</span>
-        </h2>
+        <div className="bg-card/55 border border-border/55 rounded-2xl p-8 md:p-12 shadow-lg mb-7 text-left">
+          <p className="text-sm uppercase tracking-[0.2em] text-primary font-semibold mb-3">
+            Skills
+          </p>
+          <h1 className="mb-3">
+            <GradientText
+              colors={["var(--aurora-stop-1)", "var(--aurora-stop-2)", "var(--aurora-stop-3)"]}
+              animationSpeed={8}
+              showBorder={false}
+              className="text-3xl md:text-5xl font-bold leading-tight"
+            >
+              My Skills
+            </GradientText>
+          </h1>
+          <p className="text-muted-foreground text-base md:text-lg max-w-3xl">
+            Technologies, tools, and engineering practices I use to build reliable software.
+          </p>
+        </div>
 
         <div className="mb-7">
           <LogoLoop
